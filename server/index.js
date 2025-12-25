@@ -25,7 +25,7 @@ app.use(cookieParser());
 
 app.use(
   cors({
-    origin: "https://arp-beul.vercel.app",
+    origin: "https://arp-rzkm.vercel.app",
     credentials: true,
   })
 );
