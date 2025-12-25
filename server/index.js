@@ -25,7 +25,7 @@ app.use(cookieParser());
 
 app.use(
   cors({
-    origin: "https://arp-rzkm.vercel.app",
+    origin: "https://arp-cpgl-doe6kfzqf-nithins-projects-7084dc4e.vercel.app",
     credentials: true,
   })
 );
