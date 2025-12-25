@@ -31,7 +31,7 @@ export default function LoginPage() {
     // 🔒 If Google OAuth is in progress, do NOTHING
     if (code) return
       try {
-        const res = await api.get("/user/dashboard")
+        const res = await api.get("apai/user/dashboard")
         router.replace('/dashboard')
       } catch {
         setCheckingAuth(false)
@@ -56,7 +56,7 @@ export default function LoginPage() {
     setLoading(true)
 
     try {
-      const res = await api.post("/auth/login", {
+      const res = await api.post("api/auth/login", {
         email,
         password,
         rememberMe,
