@@ -25,7 +25,7 @@ app.use(cookieParser());
 
 app.use(
   cors({
-    origin: "https://arp-cpgl.vercel.app",
+    origin: "https://www.mygrono.com",
     credentials: true,
   })
 );
