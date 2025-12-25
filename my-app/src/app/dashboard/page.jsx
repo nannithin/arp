@@ -56,7 +56,7 @@ const Dash = () => {
                         <h1 className="font-bold text-3xl">Good Afternoon, <span className="text-[#10B981]">Nithin</span></h1>
                         <p className="text-gray-500">Everything you need to monitor your campaigns and boost your reach.</p>
                     </div>
-                    <div className="h-12 rounded-full bg-[#F0F8F3] flex w-fit items-center p-0.5 mx-auto">
+                    <div className="h-12 rounded-full bg-[#F0F8F3] flex flex-wrap w-fit items-center p-0.5 mx-auto">
                         <ul className="list-none h-full flex">
                             <li className="bg-[#10B981] h-full rounded-full px-6 flex items-center text-white">
                                 Campaigns
