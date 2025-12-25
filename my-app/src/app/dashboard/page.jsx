@@ -30,7 +30,7 @@ const Dash = () => {
     useEffect(() => {
         const checkAuth = async () => {
             try {
-                const res = await api.get("/user/dashboard")
+                const res = await api.get("/api/user/dashboard")
                 console.log(res)
             } catch {
                 router.replace("/login")
