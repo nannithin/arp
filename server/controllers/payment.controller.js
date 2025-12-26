@@ -50,8 +50,8 @@ export const createCheckoutSession = async (req, res) => {
                 },
             ],
 
-            success_url: "http://localhost:3000/dashboard?payment=success",
-            cancel_url: "http://localhost:3000/pricing?payment=cancel",
+            success_url: "https://mygrono.com/dashboard?payment=success",
+            cancel_url: "https://mygrono.com/seo-plans?payment=cancel",
         });
 
 
