@@ -13,6 +13,7 @@ import { motion, AnimatePresence } from "framer-motion"
 import { useEffect, useState } from "react";
 import logo from "../../public/Frame 27.svg"
 import api from "@/lib/axios";
+import { useRouter } from "next/navigation";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -44,6 +45,7 @@ const cardVariants = {
 
 
 export default function Home() {
+  const router = useRouter();
   const [open, setOpen] = useState(false);
   const [loggedin, setLoggedin] = useState(false);
   useEffect(() => {
@@ -60,6 +62,14 @@ export default function Home() {
     checkAuth()
   }, [loggedin])
 
+  const Logout = async () => {
+    try {
+      await api.post("/api/auth/logout")
+      router.replace("/login")
+    } catch (error) {
+      console.error("Logout failed", error)
+    }
+  }
 
   const features = [
     {
@@ -124,8 +134,8 @@ export default function Home() {
             <div className="hidden md:flex items-center gap-3">
               {
                 loggedin ? <Link href="/login">
-                  <Button className="bg-[#10b981] hover:bg-[#0d9668] text-white">Log out</Button>
-                </Link> : <div>
+                  <Button onClick={Logout} className="bg-red-400 hover:bg-red-500 text-white">Log out</Button>
+                </Link> : <div className="flex items-center gap-3">
                   <Link href="/login">
                     <Button variant="outline">Log in</Button>
                   </Link>
@@ -183,21 +193,32 @@ export default function Home() {
                   ))}
                 </div>
 
-                <div className="mt-5 flex flex-col gap-2">
-                  {!loggedin && <Link href="/login" onClick={() => setOpen(false)}>
+                <div className="mt-5">
+                  {!loggedin ? <div className="flex flex-col gap-2">
+                    <Link href="/login" onClick={() => setOpen(false)}>
                     <Button variant="outline" className="w-full">
                       Log in
                     </Button>
-                  </Link>}
-                  {loggedin ? <Link href="/dashboard" onClick={() => setOpen(false)}>
-                    <Button className="w-full bg-[#10b981] hover:bg-[#0d9668] text-white">
-                      Go to dashboard
-                    </Button>
-                  </Link> : <Link href="/register" onClick={() => setOpen(false)}>
+                  </Link>
+                  <Link href="/register" onClick={() => setOpen(false)}>
                     <Button className="w-full bg-[#10b981] hover:bg-[#0d9668] text-white">
                       Get Started
                     </Button>
-                  </Link>}
+                  </Link>
+                  </div> :
+                  <div className="flex flex-col gap-2">
+                    <Link href="/dashboard" onClick={() => setOpen(false)}>
+                    <Button className="w-full bg-[#10b981] hover:bg-[#0d9668] text-white">
+                      Go to dashboard
+                    </Button>
+                  </Link>
+                  <Link href="/dashboard" onClick={Logout}>
+                    <Button className="w-full bg-red-400 hover:bg-red-500 text-white">
+                      Logout
+                    </Button>
+                  </Link>
+                  </div>
+}
                 </div>
               </motion.div>
             </>
