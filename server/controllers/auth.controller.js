@@ -150,10 +150,10 @@ export const googleAuth = async (req, res) => {
       { expiresIn: "7d" }
     );
 
-    res.cookie("token", tokenn, {
+    res.cookie("token", token, {
       httpOnly: true,
-      secure: false,
-      sameSite: "strict",
+      secure: true,          // ✅ REQUIRED on HTTPS
+      sameSite: "none",      // ✅ REQUIRED for cross-domain
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
