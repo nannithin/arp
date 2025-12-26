@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import api from "@/lib/axios";
 import { useSEOStore } from "@/store/seostore";
 import axios from "axios";
 import { ChevronRight, SquareCheckBig } from "lucide-react";
@@ -45,11 +46,8 @@ const PlanSelection = () => {
             const p = plan.name
             console.log(p);
             
-            const res = await axios.post(
-                "http://localhost:5000/api/payment/create-checkout-session",
-                { plan : p },
-                { withCredentials: true } // IMPORTANT (cookie auth)
-            );
+            
+            const res = await api.post('/api/payment/create-checkout-session',{plan : p})
 
             window.location.href = res.data.url; // redirect to Stripe
         } catch (error) {

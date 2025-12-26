@@ -1,7 +1,7 @@
 "use client"
 
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -10,14 +10,45 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Eye, EyeOff, Lock, Mail, Sparkles } from "lucide-react"
 import api from "@/lib/axios"
 import { useRouter } from "next/navigation"
+import { supabase } from "@/lib/supabaseClient"
+import { useSearchParams } from "next/navigation"
+import { useUserStore } from "@/store/seostore"
+
 
 export default function LoginPage() {
-  const [showPassword, setShowPassword] = useState(false)
+  const searchParams = useSearchParams()
+  const { setUser } = useUserStore.getState()
+  const router = useRouter();
+  const [checkingAuth, setCheckingAuth] = useState(true)
+  const [authResolving, setAuthResolving] = useState(true)
+
+
+
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      const code = searchParams.get("code");
+
+      // 🔒 If Google OAuth is in progress, do NOTHING
+      if (code) return
+      try {
+        const res = await api.get("/api/user/dashboard")
+        router.replace('/dashboard')
+      } catch {
+        setCheckingAuth(false)
+        console.log("user not logged in");
+
+
+      }
+    }
+
+    checkAuth()
+  }, [router])
+  const [showPassword, setShowPassword] = useState(false);
+
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-  const [name,setName] = useState("");
   const [rememberMe, setRememberMe] = useState(false)
-  const router = useRouter();
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")
 
@@ -27,15 +58,18 @@ export default function LoginPage() {
     setLoading(true)
 
     try {
-      const res = await api.post("/api/auth/register", {
-        name,
+      const res = await api.post("/api/auth/login", {
         email,
         password,
+        rememberMe,
       })
+      console.log("jj");
 
-      // ✅ success
-      console.log(res.data)
+      // ✅ success      
+      setUser(res.data.user)
       router.push("/dashboard")
+      console.log("jj");
+
 
     } catch (err) {
       setError(
@@ -46,10 +80,88 @@ export default function LoginPage() {
     }
   }
 
+  const handleGoogleLogin = async () => {
+    try {
+      setLoading(true)
+      setError("")
+
+      await supabase.auth.signInWithOAuth({
+        provider: "google",
+        options: {
+          redirectTo: `${window.location.origin}/login`,
+        },
+      })
+    } catch {
+      setError("Google login failed")
+      setLoading(false)
+    }
+  }
+
+
+  useEffect(() => {
+
+    const finishGoogleLogin = async () => {
+      const code = searchParams.get("code")
+
+      // 🔒 IMPORTANT: only run after Google redirect
+      if (!code) {
+        setAuthResolving(false);
+        return;
+      }
+
+      const { data, error } = await supabase.auth.getSession()
+
+      if (error || !data?.session) return
+
+      const accessToken = data.session.access_token
+      try {
+        const res = await api.post(
+          "/api/auth/google",
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        )
+
+        // Optional: clear Supabase session
+        await supabase.auth.signOut()
+        console.log(res);
+
+        router.replace("/dashboard")
+      } catch (err) {
+        setError("Google authentication failed")
+      } finally {
+        setAuthResolving(false)
+        setLoading(false)
+      }
+    }
+
+    finishGoogleLogin()
+  }, [searchParams, router])
+
+
+  console.log(loading);
+
+
+  if (checkingAuth || authResolving) {
+    return (
+      <div>
+        <div className="relative w-5 h-5 animate-[spin988_2s_linear_infinite]">
+          <span className="absolute top-0 left-0 w-2 h-2 bg-white rounded-full"></span>
+          <span className="absolute top-0 right-0 w-2 h-2 bg-white rounded-full"></span>
+          <span className="absolute bottom-0 left-0 w-2 h-2 bg-white rounded-full"></span>
+          <span className="absolute bottom-0 right-0 w-2 h-2 bg-white rounded-full"></span>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className="min-h-screen flex ">
       {/* Left Side - Sign Up Form */}
-      <div className="w-full lg:w-2/5 flex flex-col justify-center px-8 md:px-16 lg:px-24">
+      <div className="w-full border lg:w-2/5 flex flex-col justify-center px-8 md:px-16 lg:px-24">
         <div className="max-w-md w-full mx-auto">
           {/* Logo */}
           <div className="flex items-center gap-2 mb-7">
@@ -62,11 +174,11 @@ export default function LoginPage() {
           </div>
 
           {/* Heading */}
-          <h1 className="text-4xl font-medium mb-2 text-balance font-sans">Create your account</h1>
-          <p className="text-muted-foreground mb-8">Get started and unlock powerful tools to grow your channel</p>
+          <h1 className="text-4xl font-medium mb-2 text-balance font-sans">Welcome Back</h1>
+          <p className="text-muted-foreground mb-8">Glad to see you again Log into your account below</p>
 
           {/* Google Sign In Button */}
-          <Button variant="outline" className="w-full mb-6 h-12 bg-transparent">
+          <Button onClick={handleGoogleLogin} variant="outline" className="w-full mb-6 h-12 bg-transparent">
             <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24">
               <path
                 fill="#4285F4"
@@ -100,12 +212,6 @@ export default function LoginPage() {
 
           {/* Form */}
           <form className="space-y-4">
-             <div>
-              <Label htmlFor="name" className="text-sm font-medium">
-                Name<span className="text-red-500">*</span>
-              </Label>
-              <Input id="name" type="text" placeholder="Enter your name" className="mt-1.5 h-12" onChange={(e) => setName(e.target.value)} />
-            </div>
 
 
             <div>
@@ -119,26 +225,26 @@ export default function LoginPage() {
               <Label htmlFor="password" className="text-sm font-medium">
                 Password<span className="text-red-500">*</span>
               </Label>
-              <Input id="password" type="password" placeholder="Enter your password" className="mt-1.5 h-12" onChange={(e) => setPassword(e.target.value)} />
+              <Input id="password" type="password" placeholder="Enter your password" autoComplete="new-password" className="mt-1.5 h-12" onChange={(e) => setPassword(e.target.value)} />
             </div>
 
             <Button onClick={handleSubmit} className="w-full h-12 bg-[#10B981] text-white hover:bg-[#17ae7b] mt-6">
               {
                 loading ? <div className="relative w-5 h-5 animate-[spin988_2s_linear_infinite]">
-                <span className="absolute top-0 left-0 w-2 h-2 bg-white rounded-full"></span>
-                <span className="absolute top-0 right-0 w-2 h-2 bg-white rounded-full"></span>
-                <span className="absolute bottom-0 left-0 w-2 h-2 bg-white rounded-full"></span>
-                <span className="absolute bottom-0 right-0 w-2 h-2 bg-white rounded-full"></span>
-              </div> : 'Create an account'
+                  <span className="absolute top-0 left-0 w-2 h-2 bg-white rounded-full"></span>
+                  <span className="absolute top-0 right-0 w-2 h-2 bg-white rounded-full"></span>
+                  <span className="absolute bottom-0 left-0 w-2 h-2 bg-white rounded-full"></span>
+                  <span className="absolute bottom-0 right-0 w-2 h-2 bg-white rounded-full"></span>
+                </div> : 'Login'
               }
-              </Button>
+            </Button>
           </form>
 
           {/* Login Link */}
           <p className="text-sm text-muted-foreground mt-6">
-            Already have an account?{" "}
-            <a href="/login" className=" font-medium hover:underline text-[#10B981]">
-              Login Here
+            Don't have an account?{" "}
+            <a href="/register" className=" font-medium hover:underline text-[#10B981]">
+              Signup Here
             </a>
           </p>
         </div>

@@ -137,7 +137,7 @@ export default function SEOForm() {
                 <span className="text-foreground font-medium">Create SEO</span>
             </div>
 
-            <div className="w-full max-w-2xl">
+            <div className="w-full max-w-2xl max-md:py-16">
                 <div className="mb-8 text-center space-y-1">
                     <h1 className="text-3xl font-bold text-foreground">Optimize Your Channel</h1>
                     <p className="text-sm text-muted-foreground">
