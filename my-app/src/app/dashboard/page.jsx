@@ -6,14 +6,17 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import api from "@/lib/axios";
 import { useUserStore } from "@/store/seostore";
 import { Bell, Rocket, FolderPlusCreate, FolderPlus, Youtube, TrendingUp, Calendar, ExternalLink } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import logo from '../../../public/Frame 27.svg'
+import avatar from '../../../public/unnamed (1).png'
 
 const Dash = () => {
     const user = useUserStore((state) => state.user)
     console.log(user);
-    
+
     const router = useRouter();
     const [activeTab, setActiveTab] = useState("campaigns");
     const mockCampaigns = [
@@ -44,15 +47,16 @@ const Dash = () => {
 
         checkAuth()
     }, [router])
-    if(!user) return <p>Loading</p>
+    if (!user) return <p>Loading</p>
     return (
         <div>
             <nav className="h-20 flex items-center px-10 justify-between">
-                <h1 className="text-xl font-semibold">LOGO</h1>
+                <div className="">
+                    <Image height={40} src={logo} alt="logo" />
+                </div>
                 <div className="flex items-center gap-5">
-                    <Bell size={18} />
-                    <div className="h-12 w-12 rounded-full shadow-md"></div>
-                    <p>{user?.name}</p>
+                    <div className="h-12 w-12 rounded-full shadow-md"><Image src={avatar} alt="avatar" className="w-full h-full " /></div>
+                    <p className="max-md:hidden">{user?.name}</p>
                 </div>
             </nav>
             <div className="space-y-7 py-8">
@@ -61,7 +65,7 @@ const Dash = () => {
                         <h1 className="font-bold text-3xl">Good Afternoon, <span className="text-[#10B981]">{user?.name}</span></h1>
                         <p className="text-gray-500">Everything you need to monitor your campaigns and boost your reach.</p>
                     </div>
-                    <div className="h-12 rounded-full bg-[#F0F8F3] flex flex-wrap w-fit items-center p-0.5 mx-auto">
+                    <div className="max-md:hidden h-12 rounded-full bg-[#F0F8F3] flex w-fit items-center p-0.5 mx-auto">
                         <ul className="list-none h-full flex">
                             <li className="bg-[#10B981] h-full rounded-full px-6 flex items-center text-white">
                                 Campaigns

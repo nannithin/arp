@@ -13,6 +13,7 @@ import { useRouter } from "next/navigation"
 import { supabase } from "@/lib/supabaseClient"
 import { useSearchParams } from "next/navigation"
 import { useUserStore } from "@/store/seostore"
+import { toast } from "sonner"
 
 
 export default function LoginPage() {
@@ -52,11 +53,18 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")
 
+  const isValid = email.trim() !== "" &&
+        password.trim() !== ""
+
   const handleSubmit = async (e) => {
     e.preventDefault()
     setError("")
     setLoading(true)
-
+    if(!isValid){
+      toast.error("Fill all the required fields")
+      setLoading(false)
+      return;
+    }
     try {
       const res = await api.post("/api/auth/login", {
         email,
@@ -75,6 +83,7 @@ export default function LoginPage() {
       setError(
         err.response?.data?.message || "Login failed. Try again."
       )
+      toast.error("Invalid credentials")
     } finally {
       setLoading(false)
     }

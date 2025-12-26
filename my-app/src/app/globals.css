@@ -215,3 +215,18 @@ body{
   font-family: var(--font-mona);
 
 }
+
+/* 🔴 Modern Red Error Toast */
+[data-sonner-toast][data-type="error"] {
+  font-family: var(--font-mona);
+  background-color: rgb(254 242 242) !important; /* red-50 */
+  color: rgb(127 29 29) !important;              /* red-900 */
+}
+
+/* 🌙 Dark mode */
+.dark [data-sonner-toast][data-type="error"] {
+  font-family: var(--font-mona);
+  background-color: rgb(69 10 10) !important;    /* red-950 */
+  color: rgb(254 226 226) !important;            /* red-100 */
+  
+}

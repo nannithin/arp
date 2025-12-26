@@ -1,5 +1,6 @@
 import { Mona_Sans } from "next/font/google"
 import "./globals.css";
+import { Toaster } from "@/components/ui/sonner";
 
 const monaSans = Mona_Sans({
   subsets: ["latin"],
@@ -21,8 +22,10 @@ export default function RootLayout({ children }) {
       <body
         className={`${monaSans.variable} antialiased scroll-smooth`}
       >
-        {children}
+        <main>{children}</main>
+         <Toaster />
       </body>
+     
     </html>
   );
 }

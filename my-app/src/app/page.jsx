@@ -51,7 +51,7 @@ export default function Home() {
       try {
         const res = await api.get("/api/user/dashboard")
         setLoggedin(true)
-      } catch(err) {
+      } catch (err) {
         setLoggedin(false)
 
       }
@@ -122,14 +122,20 @@ export default function Home() {
 
             {/* Desktop Auth */}
             <div className="hidden md:flex items-center gap-3">
-              <Link href="/login">
-                <Button variant="outline">Log in</Button>
-              </Link>
-              <Link href="/register">
-                <Button className="bg-[#10b981] hover:bg-[#0d9668] text-white">
-                  Get Started
-                </Button>
-              </Link>
+              {
+                loggedin ? <Link href="/login">
+                  <Button className="bg-[#10b981] hover:bg-[#0d9668] text-white">Log out</Button>
+                </Link> : <div>
+                  <Link href="/login">
+                    <Button variant="outline">Log in</Button>
+                  </Link>
+                  <Link href="/register">
+                    <Button className="bg-[#10b981] hover:bg-[#0d9668] text-white">
+                      Get Started
+                    </Button>
+                  </Link>
+                </div>
+              }
             </div>
 
             {/* Mobile Menu Button */}
@@ -178,7 +184,7 @@ export default function Home() {
                 </div>
 
                 <div className="mt-5 flex flex-col gap-2">
-                 {!loggedin && <Link href="/login" onClick={() => setOpen(false)}>
+                  {!loggedin && <Link href="/login" onClick={() => setOpen(false)}>
                     <Button variant="outline" className="w-full">
                       Log in
                     </Button>
@@ -187,7 +193,7 @@ export default function Home() {
                     <Button className="w-full bg-[#10b981] hover:bg-[#0d9668] text-white">
                       Go to dashboard
                     </Button>
-                  </Link>  : <Link href="/register" onClick={() => setOpen(false)}>
+                  </Link> : <Link href="/register" onClick={() => setOpen(false)}>
                     <Button className="w-full bg-[#10b981] hover:bg-[#0d9668] text-white">
                       Get Started
                     </Button>
@@ -216,10 +222,10 @@ export default function Home() {
             <h1 className="md:text-5xl text-3xl font-bold text-center md:leading-14">We help creators understand what drives real <span className="text-[#10b981]">channel growth</span></h1>
             <p className="text-center px-5">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ab doloribus dignissimos voluptate nihil distinctio rerum quis perspiciatis sit amet consectetu</p>
             <div className="flex items-center gap-3">
-             {
-              loggedin ?  <Link href="/dashboard"><Button size={"lg"} className="bg-[#10b981] hover:bg-[#0d9668] text-white">Go to dashboard</Button></Link> :
-               <Link href="/register"><Button size={"lg"} className="bg-[#10b981] hover:bg-[#0d9668] text-white">Get Started</Button></Link>
-             }
+              {
+                loggedin ? <Link href="/dashboard"><Button size={"lg"} className="bg-[#10b981] hover:bg-[#0d9668] text-white">Go to dashboard</Button></Link> :
+                  <Link href="/register"><Button size={"lg"} className="bg-[#10b981] hover:bg-[#0d9668] text-white">Get Started</Button></Link>
+              }
               <a href="#about"><Button variant="outline" size={"lg"} className="">
                 Learn more
               </Button></a>
