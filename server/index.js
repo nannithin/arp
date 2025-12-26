@@ -13,7 +13,7 @@ import webhookRoutes from "./routes/webhook.routes.js";
 
 
 const app = express()
-
+app.set("trust proxy", 1)
 // Middleware
 
 
