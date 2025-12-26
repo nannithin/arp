@@ -14,6 +14,7 @@ import { useEffect, useState } from "react";
 import logo from "../../public/Frame 27.svg"
 import api from "@/lib/axios";
 import { useRouter } from "next/navigation";
+import { useSEOStore, useUserStore } from "@/store/seostore";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -65,6 +66,8 @@ export default function Home() {
   const Logout = async () => {
     try {
       await api.post("/api/auth/logout")
+      useUserStore.getState().clearUser()
+      useSEOStore.getState().reset()
       router.replace("/login")
     } catch (error) {
       console.error("Logout failed", error)
@@ -196,29 +199,29 @@ export default function Home() {
                 <div className="mt-5">
                   {!loggedin ? <div className="flex flex-col gap-2">
                     <Link href="/login" onClick={() => setOpen(false)}>
-                    <Button variant="outline" className="w-full">
-                      Log in
-                    </Button>
-                  </Link>
-                  <Link href="/register" onClick={() => setOpen(false)}>
-                    <Button className="w-full bg-[#10b981] hover:bg-[#0d9668] text-white">
-                      Get Started
-                    </Button>
-                  </Link>
+                      <Button variant="outline" className="w-full">
+                        Log in
+                      </Button>
+                    </Link>
+                    <Link href="/register" onClick={() => setOpen(false)}>
+                      <Button className="w-full bg-[#10b981] hover:bg-[#0d9668] text-white">
+                        Get Started
+                      </Button>
+                    </Link>
                   </div> :
-                  <div className="flex flex-col gap-2">
-                    <Link href="/dashboard" onClick={() => setOpen(false)}>
-                    <Button className="w-full bg-[#10b981] hover:bg-[#0d9668] text-white">
-                      Go to dashboard
-                    </Button>
-                  </Link>
-                  <Link href="/dashboard" onClick={Logout}>
-                    <Button className="w-full bg-red-400 hover:bg-red-500 text-white">
-                      Logout
-                    </Button>
-                  </Link>
-                  </div>
-}
+                    <div className="flex flex-col gap-2">
+                      <Link href="/dashboard" onClick={() => setOpen(false)}>
+                        <Button className="w-full bg-[#10b981] hover:bg-[#0d9668] text-white">
+                          Go to dashboard
+                        </Button>
+                      </Link>
+                      <Link href="/dashboard" onClick={Logout}>
+                        <Button className="w-full bg-red-400 hover:bg-red-500 text-white">
+                          Logout
+                        </Button>
+                      </Link>
+                    </div>
+                  }
                 </div>
               </motion.div>
             </>

@@ -136,8 +136,7 @@ export default function LoginPage() {
 
         // Optional: clear Supabase session
         await supabase.auth.signOut()
-        console.log(res);
-
+        setUser(res.data.user);
         router.replace("/dashboard")
       } catch (err) {
         setError("Google authentication failed")
@@ -151,7 +150,8 @@ export default function LoginPage() {
   }, [searchParams, router])
 
 
-  console.log(loading);
+  console.log(authResolving+" "+checkingAuth);
+  
 
 
   if (checkingAuth || authResolving) {

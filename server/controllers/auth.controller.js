@@ -160,15 +160,15 @@ export const googleAuth = async (req, res) => {
       maxAge: 7 * 24 * 60 * 60 * 1000,
     })
 
-    res.status(200).json({
-      token: tokenn,
+    
+    res.json({
+      message: "Login successful",
       user: {
         id: user._id,
-        email: user.email,
         name: user.name,
-        plan: user.plan,
+        email: user.email,
       },
-    })
+    });
   } catch (err) {
     console.error("Google Auth Error:", err)
     res.status(401).json({ message: "Google authentication failed" })
