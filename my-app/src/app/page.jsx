@@ -10,8 +10,8 @@ import { Lightbulb, Eye, TrendingUp, Clock, Shield, Users } from "lucide-react"
 
 import Link from "next/link"
 import { motion, AnimatePresence } from "framer-motion"
-import { useState } from "react";
-import logo from "../../public/ChatGPT Image Dec 26, 2025, 12_12_24 AM.png"
+import { useEffect, useState } from "react";
+import logo from "../../public/Frame 27.svg"
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -43,7 +43,21 @@ const cardVariants = {
 
 
 export default function Home() {
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
+  const [loggedin, setLoggedin] = useState(false);
+  useEffect(() => {
+          const checkAuth = async () => {
+              try {
+                  const res = await api.get("/api/user/dashboard")
+                  setLoggedin(true)
+              } catch {
+                  setLoggedin(false)
+  
+              }
+          }
+  
+          checkAuth()
+      }, [loggedin])
 
   const features = [
     {
@@ -90,13 +104,11 @@ export default function Home() {
       <header className="md:px-20 px-3 backdrop-blur-2xl sticky top-0 z-50">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
-            <div className="">
-              <Image src={logo} alt="logo" />
-            </div>
             {/* Logo */}
             <div className="flex items-center gap-5">
-
-
+              <div className="">
+                <Image height={40}  src={logo} alt="logo" />
+              </div>
               {/* Desktop Nav */}
               <nav className="hidden md:flex items-center gap-6 text-[15px]">
                 <a className="hover:text-[#10B981] active:text-[#10b981]" href="#home">Home</a>
@@ -169,11 +181,15 @@ export default function Home() {
                       Log in
                     </Button>
                   </Link>
-                  <Link href="/register" onClick={() => setOpen(false)}>
+                  { !loggedin ? <Link href="/register" onClick={() => setOpen(false)}>
                     <Button className="w-full bg-[#10b981] hover:bg-[#0d9668] text-white">
                       Get Started
                     </Button>
-                  </Link>
+                  </Link> : <Link href="/dashboard" onClick={() => setOpen(false)}>
+                    <Button className="w-full bg-[#10b981] hover:bg-[#0d9668] text-white">
+                      Go to dashboard
+                    </Button>
+                  </Link>}
                 </div>
               </motion.div>
             </>

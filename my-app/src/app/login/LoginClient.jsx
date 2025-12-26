@@ -29,8 +29,8 @@ export default function LoginPage() {
     const checkAuth = async () => {
       const code = searchParams.get("code");
 
-    // 🔒 If Google OAuth is in progress, do NOTHING
-    if (code) return
+      // 🔒 If Google OAuth is in progress, do NOTHING
+      if (code) return
       try {
         const res = await api.get("/api/user/dashboard")
         router.replace('/dashboard')
@@ -45,7 +45,7 @@ export default function LoginPage() {
     checkAuth()
   }, [router])
   const [showPassword, setShowPassword] = useState(false);
-  
+
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [rememberMe, setRememberMe] = useState(false)
@@ -64,12 +64,12 @@ export default function LoginPage() {
         rememberMe,
       })
       console.log("jj");
-      
+
       // ✅ success      
       setUser(res.data.user)
       router.push("/dashboard")
       console.log("jj");
-      
+
 
     } catch (err) {
       setError(
@@ -81,34 +81,34 @@ export default function LoginPage() {
   }
 
   const handleGoogleLogin = async () => {
-  try {
-    setLoading(true)
-    setError("")
+    try {
+      setLoading(true)
+      setError("")
 
-    await supabase.auth.signInWithOAuth({
-      provider: "google",
-      options: {
-        redirectTo: `${window.location.origin}/login`,
-      },
-    })
-  } catch {
-    setError("Google login failed")
-    setLoading(false)
+      await supabase.auth.signInWithOAuth({
+        provider: "google",
+        options: {
+          redirectTo: `${window.location.origin}/login`,
+        },
+      })
+    } catch {
+      setError("Google login failed")
+      setLoading(false)
+    }
   }
-}
 
 
   useEffect(() => {
-    
+
     const finishGoogleLogin = async () => {
       const code = searchParams.get("code")
 
-    // 🔒 IMPORTANT: only run after Google redirect
-    if (!code){
-      setAuthResolving(false);
-      return;
-    }
-      
+      // 🔒 IMPORTANT: only run after Google redirect
+      if (!code) {
+        setAuthResolving(false);
+        return;
+      }
+
       const { data, error } = await supabase.auth.getSession()
 
       if (error || !data?.session) return
@@ -128,7 +128,7 @@ export default function LoginPage() {
         // Optional: clear Supabase session
         await supabase.auth.signOut()
         console.log(res);
-        
+
         router.replace("/dashboard")
       } catch (err) {
         setError("Google authentication failed")
@@ -139,10 +139,10 @@ export default function LoginPage() {
     }
 
     finishGoogleLogin()
-  }, [searchParams,router])
+  }, [searchParams, router])
 
 
-console.log(loading);
+  console.log(loading);
 
 
   if (checkingAuth || authResolving) {
