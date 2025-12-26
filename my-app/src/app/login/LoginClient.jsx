@@ -109,8 +109,6 @@ export default function LoginPage() {
       if (error || !data?.session) return
 
       const accessToken = data.session.access_token
-      console.log("TOKEN:", accessToken)
-
       try {
         await api.post(
           "/api/auth/google",
