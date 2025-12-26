@@ -113,7 +113,7 @@ export default function LoginPage() {
 
       try {
         await api.post(
-          "/auth/google",
+          "/api/auth/google",
           {},
           {
             headers: {
@@ -221,7 +221,7 @@ console.log(loading);
               <Label htmlFor="password" className="text-sm font-medium">
                 Password<span className="text-red-500">*</span>
               </Label>
-              <Input id="password" type="password" placeholder="Enter your password" className="mt-1.5 h-12" onChange={(e) => setPassword(e.target.value)} />
+              <Input id="password" type="password" placeholder="Enter your password" autoComplete="new-password" className="mt-1.5 h-12" onChange={(e) => setPassword(e.target.value)} />
             </div>
 
             <Button onClick={handleSubmit} className="w-full h-12 bg-[#10B981] text-white hover:bg-[#17ae7b] mt-6">
