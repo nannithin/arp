@@ -113,7 +113,7 @@ export default function LoginPage() {
 
       try {
         await api.post(
-          "/auth/google",
+          "/api/auth/google",
           {},
           {
             headers: {
