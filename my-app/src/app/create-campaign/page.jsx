@@ -22,7 +22,7 @@ export default function PromotionalPage() {
         </div>
 
         {/* Promotion Cards Grid */}
-        <div className="px-24 grid md:grid-cols-2 gap-8">
+        <div className="md:px-24 px-4 grid md:grid-cols-2 gap-8">
           {/* Performance Marketing Card */}
           <div className="relative overflow-hidden hover:shadow-lg transition-all duration-300 transform hover:scale-[1.03] bg-card rounded-2xl border border-gray-100">
             {/* New Badge */}

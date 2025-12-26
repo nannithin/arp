@@ -11,6 +11,7 @@ import { Lightbulb, Eye, TrendingUp, Clock, Shield, Users } from "lucide-react"
 import Link from "next/link"
 import { motion, AnimatePresence } from "framer-motion"
 import { useState } from "react";
+import logo from "../../public/ChatGPT Image Dec 26, 2025, 12_12_24 AM.png"
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -89,15 +90,12 @@ export default function Home() {
       <header className="md:px-20 px-3 backdrop-blur-2xl sticky top-0 z-50">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
-
+            <div className="">
+              <Image src={logo} alt="logo" />
+            </div>
             {/* Logo */}
             <div className="flex items-center gap-5">
-              <div className="flex items-center gap-2">
-                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#10B981] text-white font-bold text-xl">
-                  Li
-                </div>
-                <span className="text-xl font-semibold">Title</span>
-              </div>
+
 
               {/* Desktop Nav */}
               <nav className="hidden md:flex items-center gap-6 text-[15px]">
@@ -224,7 +222,7 @@ export default function Home() {
 
             {/* Feature Cards Grid */}
             <motion.div
-              
+
               className="grid gap-8 md:grid-cols-2 lg:grid-cols-3"
             >
               {features.map((feature, index) => (

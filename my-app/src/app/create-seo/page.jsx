@@ -17,12 +17,18 @@ const isValidYouTubeChannelURL = (url) => {
 };
 
 export default function SEOForm() {
-    const { setChannelData, setChannelStats } = useSEOStore()
+    const { channelData, setChannelData, setChannelStats } = useSEOStore()
     const [formData, setFormData] = useState({
         channelName: "",
         channelUrl: "",
         channelDescription: "",
     })
+    useEffect(() => {
+        if (channelData) {
+            setFormData(channelData)
+        }
+    }, [channelData])
+
     const router = useRouter();
     const [stats, setStats] = useState(null)
     const [loading, setLoading] = useState(false)
@@ -101,8 +107,16 @@ export default function SEOForm() {
         setFormData((prev) => ({ ...prev, [name]: value }))
     }
 
+    const isFormValid =
+        formData.channelName.trim() !== "" &&
+        formData.channelUrl.trim() !== "" &&
+        formData.channelDescription.trim() !== "";
     const handleSubmit = (e) => {
         e.preventDefault();
+        if (!isFormValid) {
+            alert("Fill all the req fields");
+            return;
+        }
         setChannelData(formData)
         setChannelStats(stats)
         router.push("/seo-plans")
@@ -133,7 +147,7 @@ export default function SEOForm() {
 
                 <Card className="p-8 shadow-lg border-0 bg-white">
                     <div className="flex items-center gap-2 mb-6">
-                        <div className="w-10 h-10 rounded-lg bg-green-600 flex items-center justify-center">
+                        <div className="w-10 h-10 rounded-lg bg-[#10B981] flex items-center justify-center">
                             <Youtube className="w-6 h-6 text-white" />
                         </div>
                         <h2 className="text-2xl font-bold text-foreground">Channel Details</h2>
@@ -183,7 +197,7 @@ export default function SEOForm() {
                         {stats && (
                             <div className="">
                                 <h3 className="text-sm font-medium text-gray-600 mb-4">Channel Metrics</h3>
-                                <div className="flex justify-between mt-6 p-6 bg-slate-50 text-center border border-gray-50 rounded-xl">
+                                <div className="flex md:flex-row flex-col max-md:gap-3 justify-between mt-6 p-6 bg-slate-50 text-center border border-gray-50 rounded-xl">
                                     <div className="grid gap-1"><p className="font-medium text-sm text-gray-600">Subscribers</p> <p className="font-semibold text-xl">{stats.subscriberCount}</p></div>
                                     <div className="grid gap-1"><p className="font-medium text-sm text-gray-600">Total Views</p> <p className="font-semibold text-xl">{stats.viewCount}</p></div>
                                     <div className="grid gap-1"><p className="font-medium text-sm text-gray-600">Total Videos</p> <p className="font-semibold text-xl">{stats.videoCount}</p></div>
@@ -194,7 +208,7 @@ export default function SEOForm() {
                         <Button
                             type="submit"
                             disabled={loading || urlError}
-                            className="w-full h-12 bg-green-600 hover:bg-green-700 text-white rounded-full text-base"
+                            className="w-full h-12 bg-[#10B981] hover:bg-[#17ae7b] text-white rounded-full text-base"
                         >
                             {loading ? <Loader2 className="animate-spin w-5 h-5" /> : "Continue to Plan Selection"}
                         </Button>

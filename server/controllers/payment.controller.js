@@ -4,12 +4,13 @@ import User from "../models/user.model.js";
 export const createCheckoutSession = async (req, res) => {
     try {
         const { plan } = req.body;
-
+        console.log(plan);
+        
         const priceMap = {
-            Starter: 1000,
-            Intro: 1900,
-            Popular: 4500,
-            Enterprise: 9000,
+            Starter: 499,
+            Intro: 999,
+            Popular: 1499,
+            Enterprise: 1999,
         };
 
         const user = await User.findById(req.user.id);
@@ -39,11 +40,11 @@ export const createCheckoutSession = async (req, res) => {
             line_items: [
                 {
                     price_data: {
-                        currency: "usd",
+                        currency: "inr",
                         product_data: {
                             name: `${plan} SEO Plan`,
                         },
-                        unit_amount: priceMap[plan],
+                        unit_amount: priceMap[plan]*100,
                     },
                     quantity: 1,
                 },

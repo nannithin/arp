@@ -12,11 +12,12 @@ import api from "@/lib/axios"
 import { useRouter } from "next/navigation"
 import { supabase } from "@/lib/supabaseClient"
 import { useSearchParams } from "next/navigation"
+import { useUserStore } from "@/store/seostore"
 
 
 export default function LoginPage() {
   const searchParams = useSearchParams()
-
+  const { setUser } = useUserStore.getState()
   const router = useRouter();
   const [checkingAuth, setCheckingAuth] = useState(true)
   const [authResolving, setAuthResolving] = useState(true)
@@ -26,7 +27,7 @@ export default function LoginPage() {
 
   useEffect(() => {
     const checkAuth = async () => {
-      const code = searchParams.get("code")
+      const code = searchParams.get("code");
 
     // 🔒 If Google OAuth is in progress, do NOTHING
     if (code) return
@@ -43,7 +44,8 @@ export default function LoginPage() {
 
     checkAuth()
   }, [router])
-  const [showPassword, setShowPassword] = useState(false)
+  const [showPassword, setShowPassword] = useState(false);
+  
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [rememberMe, setRememberMe] = useState(false)
@@ -61,10 +63,13 @@ export default function LoginPage() {
         password,
         rememberMe,
       })
-
-      // ✅ success
-      console.log(res.data)
+      console.log("jj");
+      
+      // ✅ success      
+      setUser(res.data.user)
       router.push("/dashboard")
+      console.log("jj");
+      
 
     } catch (err) {
       setError(
@@ -110,7 +115,7 @@ export default function LoginPage() {
 
       const accessToken = data.session.access_token
       try {
-        await api.post(
+        const res = await api.post(
           "/api/auth/google",
           {},
           {
@@ -122,7 +127,8 @@ export default function LoginPage() {
 
         // Optional: clear Supabase session
         await supabase.auth.signOut()
-
+        console.log(res);
+        
         router.replace("/dashboard")
       } catch (err) {
         setError("Google authentication failed")

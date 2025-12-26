@@ -4,12 +4,16 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import api from "@/lib/axios";
+import { useUserStore } from "@/store/seostore";
 import { Bell, Rocket, FolderPlusCreate, FolderPlus, Youtube, TrendingUp, Calendar, ExternalLink } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const Dash = () => {
+    const user = useUserStore((state) => state.user)
+    console.log(user);
+    
     const router = useRouter();
     const [activeTab, setActiveTab] = useState("campaigns");
     const mockCampaigns = [
@@ -40,6 +44,7 @@ const Dash = () => {
 
         checkAuth()
     }, [router])
+    if(!user) return <p>Loading</p>
     return (
         <div>
             <nav className="h-20 flex items-center px-10 justify-between">
@@ -47,13 +52,13 @@ const Dash = () => {
                 <div className="flex items-center gap-5">
                     <Bell size={18} />
                     <div className="h-12 w-12 rounded-full shadow-md"></div>
-                    <p>nithin</p>
+                    <p>{user?.name}</p>
                 </div>
             </nav>
             <div className="space-y-7 py-8">
                 <div className="max-w-[800px] mx-auto space-y-7 py-8">
                     <div className="text-center space-y-1">
-                        <h1 className="font-bold text-3xl">Good Afternoon, <span className="text-[#10B981]">Nithin</span></h1>
+                        <h1 className="font-bold text-3xl">Good Afternoon, <span className="text-[#10B981]">{user?.name}</span></h1>
                         <p className="text-gray-500">Everything you need to monitor your campaigns and boost your reach.</p>
                     </div>
                     <div className="h-12 rounded-full bg-[#F0F8F3] flex flex-wrap w-fit items-center p-0.5 mx-auto">
@@ -88,7 +93,7 @@ const Dash = () => {
                                         Start your first campaign to grow your reach and track performance.
                                     </p>
                                     <Button asChild size="lg" className="bg-emerald-500 hover:bg-emerald-600">
-                                        <Link href="/campaigns/create">
+                                        <Link href="/create-campaign">
                                             <span className="mr-2">+</span>
                                             Create campaign
                                         </Link>
@@ -100,7 +105,7 @@ const Dash = () => {
                                     <div className="flex items-center justify-between mb-6">
                                         <h2 className="text-2xl font-semibold">Your Campaigns</h2>
                                         <Button asChild className="bg-emerald-500 hover:bg-emerald-600">
-                                            <Link href="/campaigns/create">
+                                            <Link href="/create-campaign">
                                                 <span className="mr-2">+</span>
                                                 Create campaign
                                             </Link>
