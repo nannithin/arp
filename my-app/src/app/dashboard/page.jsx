@@ -34,19 +34,6 @@ const Dash = () => {
         // Add more campaigns as needed
     ]
 
-    useEffect(() => {
-        const checkAuth = async () => {
-            try {
-                const res = await api.get("/api/user/dashboard")
-                console.log(res)
-            } catch {
-                router.replace("/login")
-
-            }
-        }
-
-        checkAuth()
-    }, [router])
     if (!user) return <p>Loading</p>
     return (
         <div>

@@ -18,33 +18,14 @@ import { toast } from "sonner"
 
 export default function LoginPage() {
   const searchParams = useSearchParams()
-  const { setUser } = useUserStore.getState()
+  const setUser = useUserStore((s) => s.setUser)
+  const user = useUserStore((s) => s.user)
+
   const router = useRouter();
-  const [checkingAuth, setCheckingAuth] = useState(true)
   const [authResolving, setAuthResolving] = useState(true)
 
+  
 
-
-
-  useEffect(() => {
-    const checkAuth = async () => {
-      const code = searchParams.get("code");
-
-      // 🔒 If Google OAuth is in progress, do NOTHING
-      if (code) return
-      try {
-        const res = await api.get("/api/user/dashboard")
-        router.replace('/dashboard')
-      } catch {
-        setCheckingAuth(false)
-        console.log("user not logged in");
-
-
-      }
-    }
-
-    checkAuth()
-  }, [router])
   const [showPassword, setShowPassword] = useState(false);
 
   const [email, setEmail] = useState("")
@@ -54,13 +35,13 @@ export default function LoginPage() {
   const [error, setError] = useState("")
 
   const isValid = email.trim() !== "" &&
-        password.trim() !== ""
+    password.trim() !== ""
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     setError("")
     setLoading(true)
-    if(!isValid){
+    if (!isValid) {
       toast.error("Fill all the required fields")
       setLoading(false)
       return;
@@ -108,61 +89,46 @@ export default function LoginPage() {
 
 
   useEffect(() => {
-
     const finishGoogleLogin = async () => {
       const code = searchParams.get("code")
 
-      // 🔒 IMPORTANT: only run after Google redirect
       if (!code) {
-        setAuthResolving(false);
-        return;
+        setAuthResolving(false)
+        return
       }
 
-      const { data, error } = await supabase.auth.getSession()
-
-      if (error || !data?.session) return
-
-      const accessToken = data.session.access_token
       try {
+        const { data } = await supabase.auth.getSession()
+        if (!data?.session) throw new Error()
+
+        const accessToken = data.session.access_token
+
         const res = await api.post(
           "/api/auth/google",
           {},
-          {
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-            },
-          }
+          { headers: { Authorization: `Bearer ${accessToken}` } }
         )
 
-        // Optional: clear Supabase session
+        setUser(res.data.user)
         await supabase.auth.signOut()
-        setUser(res.data.user);
         router.replace("/dashboard")
-      } catch (err) {
-        setError("Google authentication failed")
-      } finally {
+      } catch {
         setAuthResolving(false)
-        setLoading(false)
       }
     }
 
     finishGoogleLogin()
-  }, [searchParams, router])
+  }, [])
 
 
-  console.log(authResolving+" "+checkingAuth);
-  
 
 
-  if (checkingAuth || authResolving) {
+
+
+  if (authResolving) {
     return (
       <div>
-        <div className="relative w-5 h-5 animate-[spin988_2s_linear_infinite]">
-          <span className="absolute top-0 left-0 w-2 h-2 bg-white rounded-full"></span>
-          <span className="absolute top-0 right-0 w-2 h-2 bg-white rounded-full"></span>
-          <span className="absolute bottom-0 left-0 w-2 h-2 bg-white rounded-full"></span>
-          <span className="absolute bottom-0 right-0 w-2 h-2 bg-white rounded-full"></span>
-        </div>
+        <p>Loading...</p>
       </div>
     )
   }

@@ -20,31 +20,7 @@ export default function RegisterPage() {
     const searchParams = useSearchParams()
     const { setUser } = useUserStore.getState()
     const router = useRouter();
-    const [checkingAuth, setCheckingAuth] = useState(true)
     const [authResolving, setAuthResolving] = useState(true)
-
-
-
-
-    useEffect(() => {
-        const checkAuth = async () => {
-            const code = searchParams.get("code");
-
-            // 🔒 If Google OAuth is in progress, do NOTHING
-            if (code) return
-            try {
-                const res = await api.get("/api/user/dashboard")
-                router.replace('/dashboard')
-            } catch {
-                setCheckingAuth(false)
-                console.log("user not logged in");
-
-
-            }
-        }
-
-        checkAuth()
-    }, [router])
     const [showPassword, setShowPassword] = useState(false);
     const [name, setName] = useState("")
     const [email, setEmail] = useState("")
@@ -155,7 +131,7 @@ export default function RegisterPage() {
     console.log(loading);
 
 
-    if (checkingAuth || authResolving) {
+    if (authResolving) {
         return (
             <div>
                 <div className="relative w-5 h-5 animate-[spin988_2s_linear_infinite]">
