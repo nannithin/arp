@@ -32,11 +32,12 @@ export const register = async (req, res) => {
 
     res.cookie("token", token, {
       httpOnly: true,
-      secure: true,              // HTTPS only
-      sameSite: "none",          // cross-domain
-      path: "/",                 // ✅ REQUIRED
+      secure: process.env.NODE_ENV === "production", // ✅ FIX
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+      path: "/",
       maxAge: 7 * 24 * 60 * 60 * 1000,
     })
+
 
     res.status(201).json({
       message: "User registered successfully",
@@ -77,13 +78,15 @@ export const login = async (req, res) => {
       { expiresIn: "7d" }
     );
 
+
     res.cookie("token", token, {
       httpOnly: true,
-      secure: true,              // HTTPS only
-      sameSite: "none",          // cross-domain
-      path: "/",                 // ✅ REQUIRED
+      secure: process.env.NODE_ENV === "production", // ✅ FIX
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+      path: "/",
       maxAge: 7 * 24 * 60 * 60 * 1000,
     })
+
 
     res.json({
       message: "Login successful",
@@ -152,15 +155,16 @@ export const googleAuth = async (req, res) => {
       { expiresIn: "7d" }
     );
 
-    res.cookie("token", tokenn, {
+    res.cookie("token", token, {
       httpOnly: true,
-      secure: true,              // HTTPS only
-      sameSite: "none",          // cross-domain
-      path: "/",                 // ✅ REQUIRED
+      secure: process.env.NODE_ENV === "production", // ✅ FIX
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+      path: "/",
       maxAge: 7 * 24 * 60 * 60 * 1000,
     })
 
-    
+
+
     res.json({
       message: "Login successful",
       user: {
@@ -178,8 +182,8 @@ export const googleAuth = async (req, res) => {
 export const logout = (req, res) => {
   res.clearCookie("token", {
     httpOnly: true,
-    secure: true,
-    sameSite: "none",
+    secure: process.env.NODE_ENV === "production", // ✅ FIX
+    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
     path: "/",
   })
 
