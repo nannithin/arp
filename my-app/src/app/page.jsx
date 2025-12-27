@@ -239,7 +239,7 @@ export default function Home() {
           <div className="flex justify-center">
             <div className="inline-flex max-md:text-[7px] items-center px-4 py-2 rounded-full text-sm font-medium gap-5 border bg-emerald-50/50 ">
               <p>Launch your first promotion campaign in under 2 minutes ⚡</p>
-              <a className="text-[#10b981]" href="">Create Campaign</a>
+              <a className="text-[#10b981]" href={`${loggedin ? "/create-campaign" : "/login"}`}>Create Campaign</a>
             </div>
           </div>
           <div className="flex flex-col items-center justify-center gap-5 pb-20 max-md:px-3">
