@@ -159,7 +159,7 @@ export const googleAuth = async (req, res) => {
       { expiresIn: "7d" }
     );
 
-    res.cookie("token", token, {
+    res.cookie("token", tokenn, {
       httpOnly: true,
       secure: true,
       sameSite: "none",
