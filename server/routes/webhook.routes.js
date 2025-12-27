@@ -5,7 +5,7 @@ const router = express.Router();
 
 // Stripe needs RAW body
 router.post(
-  "/webhook",
+  "/",
   express.raw({ type: "application/json" }),
   handleStripeWebhook
 );
