@@ -53,6 +53,7 @@ export const createCheckoutSession = async (req, res) => {
             success_url: "https://mygrono.com/dashboard?payment=success",
             cancel_url: "https://mygrono.com/seo-plans?payment=cancel",
         });
+        
 
 
         res.json({ url: session.url });

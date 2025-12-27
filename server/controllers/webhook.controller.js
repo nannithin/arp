@@ -4,7 +4,7 @@ import Payment from "../models/payment.model.js";
 
 export const handleStripeWebhook = async (req, res) => {
   const sig = req.headers["stripe-signature"];
-
+  
   let event;
 
   try {
