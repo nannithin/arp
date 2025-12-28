@@ -126,10 +126,7 @@ export default function SEOForm() {
     return (
         <div className="min-h-screen bg-linear-to-br from-white to-green-50 flex items-center justify-center p-6">
             <div className="absolute left-8 top-8 mb-8 flex items-center gap-2 text-sm">
-                <a href="/dashboard" className="text-muted-foreground hover:text-foreground transition-colors">
-                    Dashboard
-                </a>
-                <ChevronRight className="w-4 h-4 text-muted-foreground" />
+                
                 <a href="/create-campaign" className="text-muted-foreground hover:text-foreground transition-colors">
                     Create Campaign
                 </a>

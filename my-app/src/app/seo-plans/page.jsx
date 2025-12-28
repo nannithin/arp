@@ -41,20 +41,42 @@ const PlanSelection = () => {
         setPlan(e)
     }
 
+
+    
+    
+
     const handlePayment = async () => {
         try {
-            const p = plan.name
-            console.log(p);
-            
-            
-            const res = await api.post('/api/payment/create-checkout-session',{plan : p})
+            if (!plan) {
+                alert("Please select a plan");
+                return;
+            }
 
-            window.location.href = res.data.url; // redirect to Stripe
+            if (!channelData) {
+                alert("Channel data missing");
+                return;
+            }
+
+            const payload = {
+                plan: plan.name,
+                channelName: channelData.channelName,
+                channelDescription: channelData.channelDescription,
+                channelUrl: channelData.channelUrl,
+                subscribers: channelStats?.subscriberCount || 0,
+            };
+
+            const res = await api.post(
+                "/api/payment/create-checkout-session",
+                payload
+            );
+
+            window.location.href = res.data.url;
         } catch (error) {
             console.error(error);
             alert("Payment failed");
         }
     };
+
 
 
     return (
