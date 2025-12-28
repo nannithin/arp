@@ -188,8 +188,9 @@ export const googleAuth = async (req, res) => {
 export const logout = (req, res) => {
   res.clearCookie("token", {
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production", // ✅ FIX
-    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+    secure: true,
+    sameSite: "none",
+    domain: ".mygrono.com",
     path: "/",
   })
 
