@@ -4,37 +4,56 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import api from "@/lib/axios";
-import { useUserStore } from "@/store/seostore";
+import { useSEOStore, useUserStore } from "@/store/seostore";
 import { Bell, Rocket, FolderPlusCreate, FolderPlus, Youtube, TrendingUp, Calendar, ExternalLink } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import logo from '../../../public/Frame 27.svg'
 import avatar from '../../../public/unnamed (1).png'
 
 const Dash = () => {
     const user = useUserStore((state) => state.user)
+    const searchParams = useSearchParams();
+    const reset = useSEOStore((state) => state.reset);
     console.log(user);
 
     const router = useRouter();
     const [activeTab, setActiveTab] = useState("campaigns");
-    const mockCampaigns = [
-        {
-            id: "1",
-            channelName: "Tech Reviews Daily",
-            channelUrl: "https://youtube.com/@techreviews",
-            channelDescription: "Daily reviews of the latest tech gadgets and software",
-            plan: "Premium",
-            status: "active",
-            createdAt: "2025-01-15",
-            subscribers: 125000,
-            views: 2500000,
-        },
-        // Add more campaigns as needed
-    ]
+    const [campaigns, setCampaigns] = useState([]);
+    const [loadingCampaigns, setLoadingCampaigns] = useState(true);
 
-    if (!user) return <p>Loading</p>
+
+
+    useEffect(() => {
+        if (searchParams.get("payment") === "success") {
+            reset();
+        }
+    }, [searchParams, reset]);
+
+    useEffect(() => {
+        const fetchCampaigns = async () => {
+            try {
+                const res = await api.get("/api/user/campaigns");
+                setCampaigns(res.data);
+            } catch (error) {
+                console.error("Failed to fetch campaigns", error);
+            } finally {
+                setLoadingCampaigns(false);
+            }
+        };
+
+        fetchCampaigns();
+    }, []);
+
+    if (loadingCampaigns || !user) {
+        return (
+            <div className="flex items-center justify-center py-32">
+                <p className="text-muted-foreground">Loading campaigns...</p>
+            </div>
+        );
+    }
     return (
         <div>
             <nav className="h-20 flex items-center px-10 justify-between">
@@ -73,7 +92,7 @@ const Dash = () => {
                 <div className="max-w-7xl mx-auto px-4">
                     {activeTab === "campaigns" && (
                         <>
-                            {mockCampaigns.length === 0 ? (
+                            {campaigns.length === 0 ? (
                                 /* Empty State */
                                 <div className="flex flex-col items-center justify-center py-24">
                                     <div className="rounded-full bg-muted p-6 mb-6">
@@ -104,7 +123,7 @@ const Dash = () => {
                                     </div>
 
                                     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-                                        {mockCampaigns.map((campaign) => (
+                                        {campaigns.map((campaign) => (
                                             <Card key={campaign.id} className="hover:shadow-lg transition-shadow">
                                                 <CardHeader>
                                                     <div className="flex items-start justify-between mb-2">
@@ -127,7 +146,7 @@ const Dash = () => {
                                                         <div className="flex items-center justify-between text-sm">
                                                             <span className="text-muted-foreground flex items-center gap-1">
                                                                 <TrendingUp className="w-4 h-4" />
-                                                                Subscribers
+                                                                {campaign.subscribers.toLocaleString()}
                                                             </span>
                                                             <span className="font-semibold">{"34000"}</span>
                                                         </div>
@@ -136,11 +155,11 @@ const Dash = () => {
                                                                 <Calendar className="w-4 h-4" />
                                                                 Started
                                                             </span>
-                                                            <span className="font-semibold">24-12-2026</span>
+                                                            <span className="font-semibold">{new Date(campaign.startDate).toLocaleDateString()}</span>
                                                         </div>
                                                         <div className="flex items-center gap-2 pt-2">
                                                             <Button variant="outline" size="sm" className="flex-1 bg-transparent" asChild>
-                                                                <Link href={`/campaigns/${campaign.id}`}>View Details</Link>
+                                                                <Link href={`/campaigns/${campaign._id}`}>View Details</Link>
                                                             </Button>
                                                             <Button variant="ghost" size="sm" asChild>
                                                                 <a href={campaign.channelUrl} target="_blank" rel="noopener noreferrer">
