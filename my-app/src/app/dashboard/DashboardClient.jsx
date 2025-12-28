@@ -17,7 +17,6 @@ const Dash = () => {
     const user = useUserStore((state) => state.user)
     const searchParams = useSearchParams();
     const reset = useSEOStore((state) => state.reset);
-    console.log(user);
 
     const router = useRouter();
     const [activeTab, setActiveTab] = useState("campaigns");

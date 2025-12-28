@@ -10,6 +10,6 @@ router.get("/dashboard", protect, (req, res) => {
     user: req.user,
   })
 })
-router.get("/campaigns", getUserCampaigns)
+router.get("/campaigns", protect, getUserCampaigns)
 
 export default router
