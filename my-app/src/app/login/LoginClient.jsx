@@ -14,6 +14,8 @@ import { supabase } from "@/lib/supabaseClient"
 import { useSearchParams } from "next/navigation"
 import { useUserStore } from "@/store/seostore"
 import { toast } from "sonner"
+import Image from "next/image"
+import logo from '../../../public/Frame 27.svg'
 
 
 export default function LoginPage() {
@@ -24,7 +26,7 @@ export default function LoginPage() {
   const router = useRouter();
   const [authResolving, setAuthResolving] = useState(true)
 
-  
+
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -140,12 +142,9 @@ export default function LoginPage() {
         <div className="max-w-md w-full mx-auto">
           {/* Logo */}
           <div className="flex items-center gap-2 mb-7">
-            <div className="w-8 h-8 bg-black rounded-lg flex items-center justify-center">
-              <svg viewBox="0 0 24 24" fill="white" className="w-5 h-5">
-                <path d="M3 3h18v18H3V3z" />
-              </svg>
+            <div className="">
+              <Image height={40} src={logo} alt="logo" />
             </div>
-            <span className="text-xl text-[#10B981] font-semibold">Title</span>
           </div>
 
           {/* Heading */}
