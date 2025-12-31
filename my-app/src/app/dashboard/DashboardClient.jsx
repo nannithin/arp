@@ -158,7 +158,7 @@ const Dash = () => {
                                                         </div>
                                                         <div className="flex items-center gap-2 pt-2">
                                                             <Button variant="outline" size="sm" className="flex-1 bg-transparent" asChild>
-                                                                <Link href={`/campaigns/${campaign._id}`}>View Details</Link>
+                                                                <Link href={`/`}>View Details</Link>
                                                             </Button>
                                                             <Button variant="ghost" size="sm" asChild>
                                                                 <a href={campaign.channelUrl} target="_blank" rel="noopener noreferrer">
