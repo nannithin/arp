@@ -35,6 +35,10 @@ app.use("/api/auth", authRoutes)
 app.use("/api/user", userRoutes)
 
 app.use("/api/payment", paymentRoutes);
+app.get("/api/health", (req, res) => {
+  res.status(200).send("ok");
+});
+
 
 // DB Connection
 mongoose

@@ -50,6 +50,9 @@ export default function Home() {
   const [open, setOpen] = useState(false);
   const [loggedin, setLoggedin] = useState(false);
   useEffect(() => {
+    api.get("/health");
+  },[])
+  useEffect(() => {
     const checkAuth = async () => {
       try {
         const res = await api.get("/api/user/dashboard")
