@@ -67,7 +67,6 @@ export const login = async (req, res) => {
     if (!user) {
       return res.status(401).json({ message: "Invalid credentials" });
     }
-    console.log(user);
 
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
@@ -108,7 +107,6 @@ export const login = async (req, res) => {
 };
 
 export const googleAuth = async (req, res) => {
-  console.log("he");
 
   try {
     const authHeader = req.headers.authorization
