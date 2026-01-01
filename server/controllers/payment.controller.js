@@ -12,10 +12,10 @@ export const createCheckoutSession = async (req, res) => {
     } = req.body;
 
     const priceMap = {
-      Starter: 750,
-      Intro: 1400,
-      Popular: 2000,
-      Enterprise: 2500,
+      Starter: 75000,
+      Intro: 140000,
+      Popular: 200000,
+      Enterprise: 250000,
     };
 
     const user = await User.findById(req.user.id);

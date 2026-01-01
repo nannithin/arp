@@ -7,12 +7,14 @@ import { useSEOStore } from "@/store/seostore";
 import axios from "axios";
 import { ChevronRight, SquareCheckBig } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 
 const PlanSelection = () => {
     const { channelData, channelStats } = useSEOStore();
     const [plan, setPlan] = useState(null)
+    const bottomRef = useRef(null);
+
     const plans = [
         {
             name: "Starter",
@@ -43,7 +45,13 @@ const PlanSelection = () => {
     ]
 
     const planHandler = (e) => {
-        setPlan(e)
+        setPlan(e);
+        setTimeout(() => {
+            bottomRef.current?.scrollIntoView({
+                behavior: "smooth",
+                block: "start",
+            });
+        }, 100);
     }
 
 
@@ -142,7 +150,7 @@ const PlanSelection = () => {
 
             {
                 plan &&
-                <div className="space-y-5 max-md:px-5">
+                <div ref={bottomRef} className="space-y-5 max-md:px-5">
                     <div className="w-full shadow-sm rounded-md p-5">
 
                         <div className="space-y-3">
