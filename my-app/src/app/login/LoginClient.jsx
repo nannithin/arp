@@ -54,14 +54,9 @@ export default function LoginPage() {
         password,
         rememberMe,
       })
-      console.log("jj");
 
-      // ✅ success      
       setUser(res.data.user)
       router.push("/dashboard")
-      console.log("jj");
-
-
     } catch (err) {
       setError(
         err.response?.data?.message || "Login failed. Try again."

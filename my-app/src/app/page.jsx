@@ -82,37 +82,37 @@ export default function Home() {
       icon: Lightbulb,
       title: "Real People, Not Just Numbers",
       description:
-        "We promote your videos to genuine viewers through handpicked platforms, social communities, and niche content spaces never bots or fake traffic.",
+        "We promote your videos to real viewers through curated platforms, creator communities, and niche content spaces — never bots, never fake traffic.",
     },
     {
       icon: Eye,
       title: "Growth That Supports the Algorithm",
       description:
-        "Our strategy improves watch time, CTR, and engagement, giving the YouTube algorithm the signals it loves. That means long-term visibility, not just a one-time boost.",
+        "Our strategy focuses on improving watch time, CTR, and engagement — the exact signals YouTube uses to recommend videos long-term.",
     },
     {
       icon: TrendingUp,
       title: "SEO + Channel Optimization Included",
       description:
-        "Beyond promotion, we help with titles, tags, thumbnails, keywords, and descriptions so your channel is set up to rank in Search and Suggested videos.",
+        "We optimize titles, descriptions, tags, keywords, and thumbnails so your videos rank better in Search, Suggested, and Browse.",
     },
     {
       icon: Clock,
       title: "Transparent, Measurable Results",
       description:
-        "Every creator gets a personalized dashboard tracking real-time analytics, so you see exactly where views come from and how your content performs.",
+        "Every creator gets a personalized analytics dashboard showing traffic sources, retention, and engagement in real time.",
     },
     {
       icon: Shield,
       title: "Safe & Secure",
       description:
-        "All campaigns are YouTube-compliant and follow platform guidelines. Your channel's safety and reputation are our top priorities.",
+        "All campaigns are 100% YouTube-compliant. Your channel’s safety and reputation come first.",
     },
     {
       icon: Users,
       title: "Always-On Support",
       description:
-        "With 24/7 availability across all time zones, our dedicated team is ready to answer questions, adjust strategies, and ensure your success.",
+        "Our support team is available across time zones to answer questions, refine campaigns, and support your growth.",
     },
   ]
   return (
@@ -247,7 +247,7 @@ export default function Home() {
           </div>
           <div className="flex flex-col items-center justify-center gap-5 pb-20 max-md:px-3">
             <h1 className="md:text-5xl text-3xl font-bold text-center md:leading-14">We help creators understand what drives real <span className="text-[#10b981]">channel growth</span></h1>
-            <p className="text-center px-5">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ab doloribus dignissimos voluptate nihil distinctio rerum quis perspiciatis sit amet consectetu</p>
+            <p className="text-center px-5">We help YouTube creators increase visibility, engagement, and long-term growth by promoting content to real audiences and optimizing channels for how the algorithm actually works.</p>
             <div className="flex items-center gap-3">
               {
                 loggedin ? <Link href="/dashboard"><Button size={"lg"} className="bg-[#10b981] hover:bg-[#0d9668] text-white">Go to dashboard</Button></Link> :
@@ -271,7 +271,7 @@ export default function Home() {
                 </div>
                 <span className="text-sm font-semibold text-emerald-700">How it Works</span>
               </div>
-              <h1 className="md:text-5xl text-3xl font-semibold tracking-tight text-gray-900 lg:text-4xl text-balance md:leading-11">We offer quality, <span className="text-[#888]">with the <br />best materials and service</span></h1>
+              <h1 className="md:text-5xl text-3xl font-semibold tracking-tight text-gray-900 lg:text-4xl text-balance md:leading-11">Simple, transparent growth <span className="text-[#888]"><br />designed for creators</span></h1>
             </div>
 
             {/* Feature Cards Grid */}
