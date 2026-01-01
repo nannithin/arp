@@ -76,12 +76,12 @@ const Dash = () => {
     return (
         <div>
             <DropdownMenu>
-                <nav className="h-20 flex items-center px-10 justify-between">
+                <nav className="h-20 flex items-center md:px-10 px-5 justify-between">
                     <div className="">
                         <Image height={40} src={logo} alt="logo" />
                     </div>
                     <DropdownMenuTrigger asChild>
-                        <div className="flex items-center gap-5 max-md:px-3">
+                        <div className="flex items-center gap-5">
                             <div className="h-12 w-12 rounded-full shadow-md cursor-pointer"><Image src={avatar} alt="avatar" className="w-full h-full " /></div>
                             <p className="max-md:hidden cursor-pointer">{user?.name}</p>
                         </div>
@@ -99,7 +99,7 @@ const Dash = () => {
             </DropdownMenu>
             <div className="space-y-7 py-8">
                 <div className="max-w-[800px] mx-auto space-y-7 py-8">
-                    <div className="text-center space-y-1">
+                    <div className="text-center space-y-1 max-md:px-3">
                         <h1 className="font-bold md:text-3xl text-[26px]">Good Afternoon, <span className="text-[#10B981]">{user?.name}</span></h1>
                         <p className="text-gray-500">Everything you need to monitor your campaigns and boost your reach.</p>
                     </div>

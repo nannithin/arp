@@ -58,11 +58,11 @@ export default function DashboardContent({campaigns}) {
                         /* Campaigns List */
                         <div className="space-y-4">
                             <div className="flex items-center justify-between mb-6">
-                                <h2 className="text-2xl font-semibold">Your Campaigns</h2>
+                                <h2 className="md:text-2xl text-xl font-semibold">Your Campaigns</h2>
                                 <Button asChild className="bg-emerald-500 hover:bg-emerald-600">
                                     <Link href="/create-campaign">
-                                        <span className="mr-2">+</span>
-                                        Create campaign
+                                        <span className="md:mr-1">+</span>
+                                        <p className="max-md:hidden">Create campaign</p>
                                     </Link>
                                 </Button>
                             </div>
