@@ -27,7 +27,7 @@ const Dash = () => {
     const router = useRouter();
     const [campaigns, setCampaigns] = useState([]);
     const [loadingCampaigns, setLoadingCampaigns] = useState(true);
-
+    const [paymentInfo, setPaymentInfo] = useState("")
 
 
     useEffect(() => {
@@ -39,8 +39,13 @@ const Dash = () => {
     useEffect(() => {
         const fetchCampaigns = async () => {
             try {
-                const res = await api.get("/api/user/campaigns");
-                setCampaigns(res.data);
+                
+                const camp = await api.get("/api/user/campaigns");
+                const pay = await api.get("/api/user/paymentinfo");
+
+                setCampaigns(camp.data);
+                setPaymentInfo(pay.data);
+
             } catch (error) {
                 console.error("Failed to fetch campaigns", error);
             } finally {
@@ -53,18 +58,18 @@ const Dash = () => {
 
     const handleTabChange = (key) => {
         router.replace(`?tab=${key}`, { scroll: false })
-    }
+    }    
 
-     const Logout = async () => {
-    try {
-      await api.post("/api/auth/logout")
-      useUserStore.getState().clearUser()
-      useSEOStore.getState().reset()
-      router.replace("/login")
-    } catch (error) {
-      console.error("Logout failed", error)
+    const Logout = async () => {
+        try {
+            await api.post("/api/auth/logout")
+            useUserStore.getState().clearUser()
+            useSEOStore.getState().reset()
+            router.replace("/login")
+        } catch (error) {
+            console.error("Logout failed", error)
+        }
     }
-  }
 
     if (loadingCampaigns || !user) {
         return (
@@ -107,7 +112,7 @@ const Dash = () => {
                 </div>
 
                 <div className="max-w-7xl mx-auto px-4">
-                    <DashboardContent campaigns={campaigns} />
+                    <DashboardContent campaigns={campaigns} paymentInfo={paymentInfo} />
                 </div>
             </div>
         </div>

@@ -12,10 +12,10 @@ export const createCheckoutSession = async (req, res) => {
     } = req.body;
 
     const priceMap = {
-      Starter: 499,
-      Intro: 999,
-      Popular: 1499,
-      Enterprise: 1999,
+      Starter: 750,
+      Intro: 1400,
+      Popular: 2000,
+      Enterprise: 2500,
     };
 
     const user = await User.findById(req.user.id);
@@ -52,11 +52,11 @@ export const createCheckoutSession = async (req, res) => {
       line_items: [
         {
           price_data: {
-            currency: "inr",
+            currency: "usd",
             product_data: {
               name: `${plan} SEO Plan`,
             },
-            unit_amount: priceMap[plan] * 100,
+            unit_amount: priceMap[plan],
           },
           quantity: 1,
         },

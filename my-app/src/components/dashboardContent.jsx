@@ -3,13 +3,21 @@ import { useSearchParams } from "next/navigation";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Bell, Rocket, FolderPlusCreate, FolderPlus, Youtube, TrendingUp, Calendar, ExternalLink } from "lucide-react";
+import { Bell, Rocket, FolderPlusCreate, FolderPlus, Youtube, TrendingUp, Calendar, ExternalLink, Dot } from "lucide-react";
 import Link from "next/link";
 
 
-export default function DashboardContent({campaigns}) {
+
+export default function DashboardContent({ campaigns, paymentInfo }) {
     const searchParams = useSearchParams()
     const tab = searchParams.get("tab") || "campaigns"
+    const formated = paymentInfo?.renewAt
+    ? new Date(paymentInfo.renewAt).toLocaleDateString("en-US", {
+        month: "short",
+        day: "numeric",
+        year: "numeric",
+      })
+    : "--"
 
     const Skel = () => {
         return (
@@ -33,7 +41,48 @@ export default function DashboardContent({campaigns}) {
         case "metrics":
             return <Skel />
         case "subscriptions":
-            return <Skel />
+            return (
+                <div className="space-y-5">
+                    <div className="flex justify-between items-center">
+                        <div>
+                            <h1 className="font-semibold">Plan & Billing</h1>
+                            <p className="text-muted-foreground">Manage your plan and payments</p>
+                        </div>
+                        {paymentInfo && <div className="max-md:hidden"><Button variant={"outline"}>Cancel subscription</Button></div>}
+                    </div>
+                    <h1 className="font-semibold">Current plan</h1>
+                    {
+                        paymentInfo ? <div className="grid md:grid-cols-4 grid-cols-1 gap-5">
+                            <div className="p-5 space-y-2 rounded-lg border border-gray-300">
+                                <div className="flex items-center justify-between">
+                                    <h1 className="text-muted-foreground">Monthly plan</h1>
+                                    <div><Badge className={"bg-emerald-100 text-emerald-500"}> <div className="p-[3px] rounded-full bg-emerald-500"></div> Active</Badge></div>
+                                </div>
+                                <div>
+                                    <p className="font-semibold">{paymentInfo?.displayPrice}</p>
+                                </div>
+                            </div>
+                            <div className="p-5 space-y-2 rounded-lg border border-gray-300">
+                                <h1 className="text-muted-foreground">Renew At</h1>
+                                <p className="font-semibold">{formated}</p>
+                            </div>
+                            <div className="p-5 space-y-2 rounded-lg border border-gray-300">
+                                <h1 className="text-muted-foreground">Campaigns</h1>
+                                <p className="font-semibold">{`Created ${campaigns.length} / 3`}</p>
+                            </div>
+                            <div className="p-5 space-y-3 rounded-lg border border-dashed border-emerald-400 bg-emerald-50">
+                                <h1 className="text-muted-foreground">Upgrade Plan</h1>
+                                <Button size="sm" className="bg-emerald-500 hover:bg-emerald-600">
+                                    Upgrade Now
+                                </Button>
+                            </div>
+
+                        </div> : <div>
+                            <p>No active plan</p>
+                        </div>
+                    }
+                </div>
+            )
         default:
             return (
                 <>
@@ -81,7 +130,7 @@ export default function DashboardContent({campaigns}) {
                                                         {campaign.status}
                                                     </Badge>
                                                 </div>
-                                                <Badge variant="outline">{campaign.plan}</Badge>
+                                                <Badge variant="outline">{campaign.planName}</Badge>
                                             </div>
                                             <CardTitle className="text-lg">{campaign.channelName}</CardTitle>
                                             <CardDescription className="line-clamp-2">{campaign.channelDescription}</CardDescription>

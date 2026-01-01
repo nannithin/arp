@@ -16,25 +16,30 @@ const PlanSelection = () => {
     const plans = [
         {
             name: "Starter",
-            price: 499,
-            description: "Get our starter plan for getting small scale services.",
+            price: 750,
+            duration: 3,
+            description: "Perfect for individuals or small projects getting started with essential features.",
         },
         {
             name: "Intro",
-            price: 999,
-            description: "Get our starter plan for getting small scale services.",
+            price: 1400,
+            duration: 6,
+            description: "Ideal for growing users who need extended access and better performance over time.",
         },
         {
             name: "Popular",
-            price: 1499,
-            description: "Get our starter plan for getting small scale services.",
+            price: 2000,
+            duration: 9,
+            description: "Best value for teams and creators looking for advanced features and scalability.",
             featured: true,
         },
         {
             name: "Enterprise",
-            price: 1999,
-            description: "Get our starter plan for getting small scale services.",
+            price: 2500,
+            duration: 12,
+            description: "Designed for businesses that need long-term access, priority support, and full capabilities.",
         },
+
     ]
 
     const planHandler = (e) => {
@@ -42,8 +47,8 @@ const PlanSelection = () => {
     }
 
 
-    
-    
+
+
 
     const handlePayment = async () => {
         try {
@@ -116,8 +121,8 @@ const PlanSelection = () => {
                         </h3>
 
                         <div className="">
-                            <span className="text-5xl font-bold">₹{plan?.price}</span>
-                            <span className={`text-lg ml-1 ${plan.featured ? "text-white/80" : "text-gray-600"}`}>/ Month</span>
+                            <span className="text-5xl font-bold">${plan?.price}</span>
+                            <span className={`text-lg ml-1 ${plan.featured ? "text-white/80" : "text-gray-600"}`}>{`/ ${plan?.duration} months`}</span>
                         </div>
 
                         <p className={` text-sm ${plan.featured ? "text-white/90" : "text-gray-600"}`}>{plan?.description}</p>
@@ -152,7 +157,7 @@ const PlanSelection = () => {
                     </div>
 
                     <div className="w-full shadow-sm rounded-md p-5 text-center space-y-2">
-                        <p className="font-semibold text-[18px]">Selected <span className="text-[#10B981]">{plan.name}</span> Plan : {plan.price}₹</p>
+                        <p className="font-semibold text-[18px]">Selected <span className="text-[#10B981]">{plan.name}</span> Plan : {plan.price}$</p>
                         <Button onClick={handlePayment} className="bg-[#10B981]">Proceed to payment</Button>
                     </div>
                 </div>
