@@ -81,14 +81,14 @@ const Dash = () => {
                         <Image height={40} src={logo} alt="logo" />
                     </div>
                     <DropdownMenuTrigger asChild>
-                        <div className="flex items-center gap-5">
+                        <div className="flex items-center gap-5 max-md:px-3">
                             <div className="h-12 w-12 rounded-full shadow-md cursor-pointer"><Image src={avatar} alt="avatar" className="w-full h-full " /></div>
                             <p className="max-md:hidden cursor-pointer">{user?.name}</p>
                         </div>
                     </DropdownMenuTrigger>
                 </nav>
                 <DropdownMenuContent>
-                    <DropdownMenuItem>Campaigns</DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => handleTabChange("campaigns")}>Campaigns</DropdownMenuItem>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem onClick={() => handleTabChange("performance")}>Performance</DropdownMenuItem>
                     <DropdownMenuItem onClick={() => handleTabChange("metrics")}>Channel metrics</DropdownMenuItem>
