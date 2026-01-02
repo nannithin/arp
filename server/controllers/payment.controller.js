@@ -76,9 +76,9 @@ import checkoutNodeJssdk from "@paypal/checkout-server-sdk";
 import { paypalClient } from "../config/paypal.js";
 import Campaign from "../models/campaign.model.js";
 import Payment from "../models/payment.model.js";
-import userModel from "../models/user.model.js";
 import CampaignDraft from "../models/campaignDraft.model.js";
 
+import { PLANS } from "../config/plans.js";
 
 export const createPayPalOrder = async (req, res) => {
   try {
@@ -135,7 +135,7 @@ export const createPayPalOrder = async (req, res) => {
 };
 
 
-import { PLANS } from "../config/plans.js";
+
 
 export const capturePayPalOrder = async (req, res) => {
   try {
@@ -152,12 +152,26 @@ export const capturePayPalOrder = async (req, res) => {
     const userId = unit.reference_id;
     const transactionId = captureInfo.id;
 
-    // 🔴 READ PLAN FROM USER / DRAFT
-    const user = await User.findById(userId);
-    const plan = user.pendingPlan;
+    // 🔴 GET DRAFT (SOURCE OF TRUTH)
+    const draft = await CampaignDraft.findOne({ user: userId });
+    if (!draft) {
+      return res.status(400).json({ message: "Campaign draft not found" });
+    }
 
+    const plan = draft.plan;
     const selectedPlan = PLANS[plan];
 
+    if (!selectedPlan) {
+      return res.status(400).json({ message: "Invalid plan" });
+    }
+
+    // 🛑 Prevent duplicate payments
+    const existing = await Payment.findOne({ transactionId });
+    if (existing) {
+      return res.json({ success: true });
+    }
+
+    // 💳 SAVE PAYMENT
     await Payment.create({
       user: userId,
       provider: "paypal",
@@ -168,6 +182,7 @@ export const capturePayPalOrder = async (req, res) => {
       status: "SUCCESS",
     });
 
+    // 🚀 CREATE CAMPAIGN (ALL REQUIRED FIELDS PRESENT)
     await Campaign.create({
       user: userId,
       channelName: draft.channelName,
@@ -179,6 +194,9 @@ export const capturePayPalOrder = async (req, res) => {
       durationMonths: selectedPlan.duration,
       status: "active",
     });
+
+    // 🧹 CLEAN UP
+    await CampaignDraft.deleteOne({ user: userId });
 
     res.json({ success: true });
   } catch (error) {
