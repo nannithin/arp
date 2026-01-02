@@ -17,7 +17,7 @@ app.set("trust proxy", 1)
 
 
 
-
+mongoose.set("autoIndex", false);
 app.use(express.json())
 app.use(cookieParser());
 
