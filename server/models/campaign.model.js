@@ -52,13 +52,6 @@ const campaignSchema = new mongoose.Schema(
       type: Date,
       default: Date.now,
     },
-
-    
-
-    paypalOrderId: {
-      type: String,
-      unique: true,
-    },
   },
   {
     timestamps: true, 

@@ -21,12 +21,7 @@ export const getUserCampaigns = async (req, res) => {
 };
 
 export const getUserPayments = async (req, res) => {
-  const PLAN_MAP = {
-    750: { duration: 3, name: "Starter" },
-    1400: { duration: 6, name: "Intro" },
-    2000: { duration: 9, name: "Popular" },
-    2500: { duration: 12, name: "Enterprise" },
-  };
+  
 
   try {
 
