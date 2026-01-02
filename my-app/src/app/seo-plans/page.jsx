@@ -10,6 +10,7 @@ import { ChevronRight, SquareCheckBig } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
+import { toast } from "sonner";
 
 
 const PlanSelection = () => {
@@ -172,12 +173,14 @@ const PlanSelection = () => {
                                             await api.post("/api/payment/capture-order", {
                                                 orderId: data.orderID,
                                             });
-
-                                            router.push("/dashboard?payment=success");
+                                            toast.success("Payment sucessfull")
+                                            setTimeout(() => {
+                                                router.push("/dashboard?payment=success");
+                                            }, 1200);
                                         }}
                                         onError={(err) => {
                                             console.error("PayPal error:", err);
-                                            alert("Payment failed");
+                                            toast.error("Payment failed")
                                         }}
                                     />
                                 </div>
