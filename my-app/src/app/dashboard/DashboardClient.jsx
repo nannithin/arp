@@ -45,6 +45,7 @@ const Dash = () => {
 
                 setCampaigns(camp.data);
                 setPaymentInfo(pay.data);
+                
 
             } catch (error) {
                 console.error("Failed to fetch campaigns", error);

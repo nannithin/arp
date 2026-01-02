@@ -124,7 +124,7 @@ export default function SEOForm() {
     }
 
     return (
-        <div className="min-h-screen bg-linear-to-br from-white to-green-50 flex items-center justify-center p-6">
+        <div className="min-h-screen bg-linear-to-br from-white to-green-50 flex items-center justify-center md:p-6 p-3">
             <div className="absolute left-8 top-8 mb-8 flex items-center gap-2 text-sm">
                 
                 <a href="/create-campaign" className="text-muted-foreground hover:text-foreground transition-colors">
@@ -142,7 +142,7 @@ export default function SEOForm() {
                     </p>
                 </div>
 
-                <Card className="p-8 shadow-lg border-0 bg-white">
+                <Card className="md:p-8 p-5 shadow-lg border-0 bg-white">
                     <div className="flex items-center gap-2 mb-6">
                         <div className="w-10 h-10 rounded-lg bg-[#10B981] flex items-center justify-center">
                             <Youtube className="w-6 h-6 text-white" />

@@ -9,7 +9,6 @@ import userRoutes from "./routes/user.routes.js"
 import cors from 'cors'
 import cookieParser from "cookie-parser"
 import paymentRoutes from "./routes/payment.routes.js";
-import webhookRoutes from "./routes/webhook.routes.js";
 
 
 const app = express()
@@ -18,7 +17,6 @@ app.set("trust proxy", 1)
 
 
 
-app.use("/api/webhook", webhookRoutes);
 
 app.use(express.json())
 app.use(cookieParser());

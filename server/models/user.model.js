@@ -29,8 +29,9 @@ const userSchema = new mongoose.Schema(
       type: String, // supabase user id (sub)
     },
 
-    stripeCustomerId: {
+    pendingPlan: {
       type: String,
+      default: null,
     },
 
     plan: {

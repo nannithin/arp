@@ -1,3 +1,4 @@
+import { PLANS } from "../config/plans.js";
 import campaignModel from "../models/campaign.model.js";
 import paymentModel from "../models/payment.model.js";
 
@@ -40,9 +41,11 @@ export const getUserPayments = async (req, res) => {
     if (!info) {
       return res.json(null);
     }
-    const plan = PLAN_MAP[info.amount];
+
+    const plan = PLANS[info.plan];
+
     if (!plan) {
-      return res.status(400).json({ message: "Invalid plan amount" });
+      return res.status(400).json({ message: "Invalid plan" });
     }
 
     const startDate = info.createdAt;

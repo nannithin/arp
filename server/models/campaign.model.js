@@ -55,8 +55,9 @@ const campaignSchema = new mongoose.Schema(
 
     
 
-    stripeSessionId: {
+    paypalOrderId: {
       type: String,
+      unique: true,
     },
   },
   {

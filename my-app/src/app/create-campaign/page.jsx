@@ -5,7 +5,7 @@ import Link from "next/link"
 
 export default function PromotionalPage() {
   return (
-    <main className="min-h-screen bg-linear-to-br from-slate-50 to-white dark:from-slate-900 dark:to-slate-800 py-12 px-4">
+    <main className="min-h-screen bg-linear-to-br from-slate-50 to-white dark:from-slate-900 dark:to-slate-800 py-12 px-3">
       <div className="max-w-6xl mx-auto">
         <div className="mb-8 flex items-center gap-2 text-sm">
           <a href="/dashboard" className="text-muted-foreground hover:text-foreground transition-colors">
@@ -34,7 +34,7 @@ export default function PromotionalPage() {
               </span>
             </div>
 
-            <div className="p-8">
+            <div className="md:p-8 p-4">
               {/* Icon Circle */}
               <div className="w-20 h-20 rounded-full bg-linear-to-br from-emerald-100 to-teal-100 dark:from-emerald-900 dark:to-teal-800 flex items-center justify-center mb-6 mx-auto">
                 <Zap className="w-10 h-10 text-[#10B981]" />
@@ -72,7 +72,7 @@ export default function PromotionalPage() {
 
           {/* Brand Awareness Card */}
           <div className="relative overflow-hidden hover:shadow-lg transition-all duration-300 transform hover:scale-[1.03] bg-card border border-gray-100 rounded-2xl">
-            <div className="p-8">
+            <div className="md:p-8 p-4">
               {/* Icon Circle */}
               <div className="w-20 h-20 rounded-full bg-linear-to-br from-blue-100 to-cyan-100 dark:from-blue-900 dark:to-cyan-800 flex items-center justify-center mb-6 mx-auto">
                 <Users className="w-10 h-10 text-blue-600" />
