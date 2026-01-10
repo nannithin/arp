@@ -300,7 +300,7 @@ export default function Home() {
 
           </div>
         </div>
-        <div id="about" className="min-h-screen ">
+        <div id="about" className="">
           <div className="mx-auto max-w-7xl px-4 pt-20 sm:px-6 lg:px-8">
             {/* Header Section */}
             <div className="mb-16 text-center">

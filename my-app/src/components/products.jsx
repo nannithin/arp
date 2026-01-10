@@ -3,6 +3,7 @@
 import { Play, Rocket, Video } from "lucide-react"
 import { motion } from "framer-motion"
 import Link from "next/link"
+import { useEffect, useState } from "react"
 
 const services = [
     {
