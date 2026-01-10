@@ -214,7 +214,7 @@ export function Footer() {
 
                     {/* Copyright */}
                     <motion.p variants={itemVariants} className="text-primary-foreground/60 text-sm text-center md:text-right">
-                        © {new Date().getFullYear()} YouTube Pro. All rights reserved.
+                        © {new Date().getFullYear()} MyGrono. All rights reserved.
                     </motion.p>
                 </motion.div>
             </div>

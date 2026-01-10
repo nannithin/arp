@@ -108,7 +108,7 @@ const Dash = () => {
                     <DropdownMenuItem onClick={() => handleTabChange("metrics")}>Channel metrics</DropdownMenuItem>
                     <DropdownMenuItem onClick={() => handleTabChange("subscriptions")}>Subscriptions</DropdownMenuItem>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem className={"bg-red-400 focus:bg-red-500 text-white focus:text-white"} onClick={Logout}>Logout</DropdownMenuItem>
+                    <DropdownMenuItem className={"bg-red-500 focus:bg-red-600 text-white focus:text-white"} onClick={Logout}>Logout</DropdownMenuItem>
                 </DropdownMenuContent>
             </DropdownMenu>
             <div className="space-y-7 py-8">
