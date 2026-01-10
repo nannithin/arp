@@ -20,30 +20,14 @@ import ava from '../../public/GettyImages-1300321639.jpg'
 import { ServiceCards } from "@/components/products";
 import { Footer } from "@/components/footer";
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
+const badgeVariants = {
+  initial: { scale: 1 },
+  animate: {
+    scale: [1, 1.06, 1],
     transition: {
-      staggerChildren: 0.12,
-      delayChildren: 0.1,
-    },
-  },
-}
-
-const cardVariants = {
-  hidden: {
-    opacity: 0,
-    y: 30,
-    scale: 0.96,
-  },
-  show: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: {
-      duration: 0.5,
-      ease: "easeOut",
+      duration: 3,
+      repeat: Number.POSITIVE_INFINITY,
+      ease: "easeInOut",
     },
   },
 }
@@ -243,30 +227,34 @@ export default function Home() {
         <div className="relative ">
           <div className="max-md:hidden grid-lines z-0"></div>
           <div className="max-md:hidden">
-            <div className="inline-block absolute right-36 ">
+            <motion.div variants={badgeVariants} initial="initial"
+              animate="animate" className="inline-block absolute right-36 ">
               <div className="relative">
                 <div className="h-14 w-14 rounded-full bg-[#10b981] border-4 border-white shadow-lg "></div>
                 <MousePointer2 className="absolute -left-4 -rotate-90 text-[#10b981] fill-[#10b981]" />
               </div>
-            </div>
-            <div className="inline-block absolute right-48 bottom-12 ">
+            </motion.div>
+            <motion.div variants={badgeVariants} initial="initial"
+              animate="animate" className="inline-block absolute right-48 bottom-12 ">
               <div className="relative">
                 <Image src={ava} alt="logo" className="h-14 w-14 object-cover rounded-full bg-[#10b981] border-4 border-white shadow-lg "></Image>
                 <MousePointer2 className="absolute -left-6 -top-2 -rotate-20 text-[#10b981] fill-[#10b981]" />
               </div>
-            </div>
-            <div className="inline-block absolute left-48 bottom-12 ">
+            </motion.div>
+            <motion.div variants={badgeVariants} initial="initial"
+              animate="animate" className="inline-block absolute left-48 bottom-12 ">
               <div className="relative">
                 <div className="h-14 w-14 rounded-full bg-[#10b981] border-4 border-white shadow-lg "></div>
                 <MousePointer2 className="absolute -right-6 -top-2 rotate-104 text-[#10b981] fill-[#10b981]" />
               </div>
-            </div>
-            <div className="inline-block absolute left-36  ">
+            </motion.div>
+            <motion.div variants={badgeVariants} initial="initial"
+              animate="animate" className="inline-block absolute left-36  ">
               <div className="relative">
                 <div className="h-14 w-14 rounded-full bg-[#10b981] border-4 border-white shadow-lg "></div>
                 <MousePointer2 className="absolute -right-4 rotate-180 text-[#10b981] fill-[#10b981]" />
               </div>
-            </div>
+            </motion.div>
           </div>
 
 
