@@ -2,6 +2,7 @@
 
 import { Play, Rocket, Video } from "lucide-react"
 import { motion } from "framer-motion"
+import Link from "next/link"
 
 const services = [
     {
@@ -78,6 +79,21 @@ const floatingDotVariants = {
 }
 
 export function ServiceCards() {
+    const [loggedin, setLoggedin] = useState(false);
+
+    useEffect(() => {
+        const checkAuth = async () => {
+            try {
+                const res = await api.get("/api/user/dashboard")
+                setLoggedin(true)
+            } catch (err) {
+                setLoggedin(false)
+
+            }
+        }
+
+        checkAuth()
+    }, [loggedin])
     return (
         <section id="services" className="w-full px-4 pt-20 sm:px-6 lg:px-8 ">
             <div className="mx-auto max-w-7xl ">
@@ -182,12 +198,13 @@ export function ServiceCards() {
                                     <div className="mb-6 h-px bg-gradient-to-r from-slate-200 via-slate-300 to-transparent" />
 
                                     {/* CTA Button */}
+                                    <Link href={loggedin ? "/create-campaign" : "/login"}>
                                     <button
                                         className={`mt-auto w-full py-3 px-4 rounded-lg cursor-pointer font-semibold text-white transition-all duration-300 ${colors.button}`}
                                     >
-                                        Learn More
+                                        Start now
                                     </button>
-
+                                    </Link>
                                 </div>
                             </motion.div>
                         )

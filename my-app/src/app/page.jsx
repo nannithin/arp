@@ -144,7 +144,7 @@ export default function Home() {
             <div className="hidden md:flex items-center gap-3">
               {
                 loggedin ? <Link href="/login">
-                  <Button onClick={Logout} className="bg-red-500 hover:bg-red-600 text-white">Log out</Button>
+                  <Button onClick={Logout} className="bg-red-400 hover:bg-red-500 text-white">Log out</Button>
                 </Link> : <div className="flex items-center gap-3">
                   <Link href="/login">
                     <Button variant="outline">Log in</Button>
