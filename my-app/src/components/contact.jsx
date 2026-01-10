@@ -2,7 +2,14 @@
 
 
 import { useState } from "react"
-import { Mail, Phone, MapPin, Send, CheckCircle, Linkedin, Github, Twitter } from "lucide-react"
+import { Mail, Phone, MapPin, Send, CheckCircle, Linkedin, Github, Twitter, LinkedinIcon, TwitterIcon, GithubIcon, CheckCircle2, Zap, Users, Star } from "lucide-react"
+import { Label } from "./ui/label"
+import { Input } from "./ui/input"
+import { Button } from "./ui/button"
+import Image from "next/image"
+import globe from '../../public/globe-network.jpg'
+import logo from '../../public/Frame 28.svg'
+import { motion } from "framer-motion"
 
 export default function ContactForm() {
   const [formData, setFormData] = useState({
@@ -40,175 +47,112 @@ export default function ContactForm() {
   }
 
   return (
-    <section className="h-screen w-full px-4 bg-white border border-black">
-      <div className="grid grid-cols-2">
+    <div id="contact" className=" pt-20">
+      <div className="max-w-7xl px-6 md:px4 mx-auto flex items-center gap-4 mb-16">
+        <div className="flex-1 h-px bg-gradient-to-r from-emerald-200 to-transparent" />
+        <span className="text-xs font-semibold tracking-widest text-emerald-600 uppercase">contact</span>
+        <div className="flex-1 h-px bg-gradient-to-l from-emerald-200 to-transparent" />
+      </div>
+      <section className="md:h-[calc(100vh-64px)] w-full md:grid grid-cols-2 px-5">
 
-          {/* Left Sidebar - Dark with Contact Info */}
-          <div className=" bg-gradient-to-b from-emerald-500 to-emerald-400 p-8 text-white flex flex-col justify-between">
-            {/* Heading */}
-            <div>
-              <h2 className="text-4xl font-bold mb-2 leading-tight">
-                Let's talk <br />on something <span className="text-emerald-400">great</span> <br />together
-              </h2>
-              <p className="text-teal-200 text-base mt-6 mb-8">
-                We'd love to hear from you. Send us your inquiries and we'll get back to you as soon as possible.
-              </p>
+        <div className=" relative max-md:hidden border bg-emerald-500 rounded-lg select-none ">
+          <div className="absolute inset-0 z-10 bg-gradient-to-b from-black/60 to-black/80 rounded-lg"></div>
+          <Image className="absolute z-0 h-full w-full rounded-lg object-cover" src={globe} alt="globe" />
+          <div className="absolute z-20 top-5 left-5 select-none ">
 
-              {/* Contact Info */}
-              <div className="space-y-6">
-                {/* Email */}
-                <div className="flex items-start gap-4">
-                  <div className="w-6 h-6 text-emerald-400 flex-shrink-0 mt-1">
-                    <Mail className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <p className="text-teal-200 text-sm">Email</p>
-                    <p className="text-white font-medium">info@devloper@gmail.com</p>
-                  </div>
-                </div>
-
-                {/* Phone */}
-                <div className="flex items-start gap-4">
-                  <div className="w-6 h-6 text-emerald-400 flex-shrink-0 mt-1">
-                    <Phone className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <p className="text-teal-200 text-sm">Phone</p>
-                    <p className="text-white font-medium">+34 123 456 789</p>
-                  </div>
-                </div>
-
-                {/* Location */}
-                <div className="flex items-start gap-4">
-                  <div className="w-6 h-6 text-emerald-400 flex-shrink-0 mt-1">
-                    <MapPin className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <p className="text-teal-200 text-sm">Location</p>
-                    <p className="text-white font-medium">123 Street 457 House</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Social Links at Bottom */}
-            <div className="flex gap-4 mt-12">
-              <a
-                href="#"
-                className="w-10 h-10 rounded-lg bg-teal-700 hover:bg-emerald-500 flex items-center justify-center transition-colors duration-200"
-              >
-                <Linkedin className="w-5 h-5" />
-              </a>
-              <a
-                href="#"
-                className="w-10 h-10 rounded-lg bg-teal-700 hover:bg-emerald-500 flex items-center justify-center transition-colors duration-200"
-              >
-                <Github className="w-5 h-5" />
-              </a>
-              <a
-                href="#"
-                className="w-10 h-10 rounded-lg bg-teal-700 hover:bg-emerald-500 flex items-center justify-center transition-colors duration-200"
-              >
-                <Twitter className="w-5 h-5" />
-              </a>
+            <div className="flex items-center gap-3">
+              <Image className="h-10 w-10 object-contain " src={logo} alt="logo" />
+              <h1 className=" text-white text-[17px] font-bold">MyGrono</h1>
             </div>
           </div>
-
-          {/* Right Side - Form Card */}
-          <div className=" bg-white p-8">
-            {submitted ? (
-              <div className="h-full flex items-center justify-center">
-                <div className="text-center">
-                  <div className="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-4 animate-in fade-in zoom-in">
-                    <CheckCircle className="w-8 h-8 text-emerald-600" />
+          <div className="absolute z-20 inset-0 flex flex-col justify-between p-8 pt-24">
+            <div className="space-y-6">
+              <div>
+                <h2 className="text-white text-3xl font-bold mb-2">We're here to help</h2>
+                <p className="text-emerald-100 text-sm leading-relaxed">
+                  Have questions about MyGrono? Our team is ready to assist you and provide tailored solutions for your
+                  business needs.
+                </p>
+              </div>
+              <div className="space-y-4">
+                <div className="flex items-start gap-3">
+                  <CheckCircle2 className="w-5 h-5 text-emerald-300 flex-shrink-0 mt-0.5" />
+                  <div>
+                    <p className="text-white text-sm font-medium">24/7 Support</p>
+                    <p className="text-emerald-100 text-xs">Always available when you need us</p>
                   </div>
-                  <h3 className="text-2xl font-semibold text-gray-900 mb-2">Message Sent!</h3>
-                  <p className="text-gray-600">Thank you for reaching out. We'll get back to you shortly.</p>
+                </div>
+                <div className="flex items-start gap-3">
+                  <Zap className="w-5 h-5 text-emerald-300 flex-shrink-0 mt-0.5" />
+                  <div>
+                    <p className="text-white text-sm font-medium">Fast Response</p>
+                    <p className="text-emerald-100 text-xs">Get answers within 2 hours</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <Users className="w-5 h-5 text-emerald-300 flex-shrink-0 mt-0.5" />
+                  <div>
+                    <p className="text-white text-sm font-medium">Expert Team</p>
+                    <p className="text-emerald-100 text-xs">Industry specialists ready to help</p>
+                  </div>
                 </div>
               </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="space-y-5">
-                {/* Name */}
-                <div>
-                  <label htmlFor="name" className="block text-sm font-semibold text-gray-900 mb-2">
-                    Name
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-200"
-                    placeholder="Your name"
-                  />
+              <div className="space-y-6">
+                {/* Stats */}
+                <div className="grid grid-cols-2 gap-4 pt-4 border-t border-white/20">
+                  <div>
+                    <p className="text-emerald-300 text-xl font-bold">500+</p>
+                    <p className="text-white text-xs">Active Clients</p>
+                  </div>
+                  <div>
+                    <p className="text-emerald-300 text-xl font-bold">98%</p>
+                    <p className="text-white text-xs">Satisfaction Rate</p>
+                  </div>
                 </div>
 
-                {/* Email */}
-                <div>
-                  <label htmlFor="email" className="block text-sm font-semibold text-gray-900 mb-2">
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-200"
-                    placeholder="your@email.com"
-                  />
+                {/* Testimonial */}
+                <div className="bg-white/10 backdrop-blur-sm p-4 rounded-lg border border-white/20">
+                  <div className="flex gap-1 mb-2">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} className="w-4 h-4 text-emerald-300 fill-emerald-300" />
+                    ))}
+                  </div>
+                  <p className="text-white text-xs leading-relaxed italic">
+                    "MyGrono transformed how we manage our operations. Exceptional service!"
+                  </p>
+                  <p className="text-emerald-200 text-xs mt-2 font-medium">— Sarah Johnson, CEO</p>
                 </div>
+              </div>
+            </div>
 
-                {/* Subject */}
-                <div>
-                  <label htmlFor="subject" className="block text-sm font-semibold text-gray-900 mb-2">
-                    Subject
-                  </label>
-                  <input
-                    type="text"
-                    id="subject"
-                    name="subject"
-                    value={formData.subject}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-200"
-                    placeholder="Subject"
-                  />
-                </div>
-
-                {/* Message */}
-                <div>
-                  <label htmlFor="message" className="block text-sm font-semibold text-gray-900 mb-2">
-                    Message
-                  </label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    required
-                    rows={4}
-                    className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-200 resize-none"
-                    placeholder="Your message..."
-                  />
-                </div>
-
-                {/* Submit Button */}
-                <button
-                  type="submit"
-                  disabled={isLoading}
-                  className="w-full px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-lg transition-all duration-200 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed mt-6"
-                >
-                  <Send className="w-5 h-5" />
-                  {isLoading ? "Sending..." : "Send message"}
-                </button>
-              </form>
-            )}
           </div>
         </div>
-    </section>
+        <div className="md:px-20 px-3 flex items-center">
+          <div className="space-y-5">
+            <h1 className="text-2xl font-bold">Chat with us</h1>
+            <p className="text-muted-foreground text-sm">We’d love to hear about your channel and goals. Share a few details and our team will get back to you with the right guidance to help you grow.</p>
+            <form action="" method="post" className="space-y-4">
+              <div>
+                {/* <Label>Full name</Label> */}
+                <input type={"text"} placeholder="Full name" className={"border-b border-muted-foreground w-full focus:outline-0 p-2 text-sm placeholder:text-sm"} />
+              </div>
+              <div>
+                {/* <Label>Full name</Label> */}
+                <input type={"email"} placeholder="Email" className={"border-b border-muted-foreground w-full focus:outline-0 p-2 text-sm placeholder:text-sm"} />
+              </div>
+              <div>
+                {/* <Label>Full name</Label> */}
+                <input type={"text"} placeholder="Subject" className={"border-b border-muted-foreground w-full focus:outline-0 p-2 text-sm placeholder:text-sm"} />
+              </div>
+              <div>
+                {/* <Label>Full name</Label> */}
+                <textarea type={"text"} placeholder="Message" className={"border-b h-20 resize-none border-muted-foreground w-full focus:outline-0 p-2 text-sm placeholder:text-sm"} />
+              </div>
+              <Button className={"w-full h-12 shadow-lg shadow-emerald-50 bg-gradient-to-r from-[#10b981] to-emerald-600 hover:from-emerald-600 hover:to-emerald-700"}>Get in touch</Button>
+            </form>
+          </div>
+        </div>
+      </section>
+    </div>
   )
 }

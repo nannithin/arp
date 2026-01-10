@@ -17,6 +17,8 @@ import { useRouter } from "next/navigation";
 import { useSEOStore, useUserStore } from "@/store/seostore";
 import ContactForm from "@/components/contact";
 import ava from '../../public/GettyImages-1300321639.jpg'
+import { ServiceCards } from "@/components/products";
+import { Footer } from "@/components/ui/footer";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -133,8 +135,8 @@ export default function Home() {
               <nav className="hidden md:flex items-center gap-6 text-[15px]">
                 <a className="hover:text-[#10B981] active:text-[#10b981]" href="#home">Home</a>
                 <a className="hover:text-[#10B981]" href="#about">About</a>
-                <a className="hover:text-[#10B981]" href="#">Products</a>
-                <a className="hover:text-[#10B981]" href="#">Contact</a>
+                <a className="hover:text-[#10B981]" href="#services">Services</a>
+                <a className="hover:text-[#10B981]" href="#contact">Contact</a>
               </nav>
             </div>
 
@@ -189,7 +191,7 @@ export default function Home() {
                 className="absolute top-16 left-1/2 -translate-x-1/2 z-50 w-[92%] rounded-2xl bg-white p-5 shadow-xl md:hidden"
               >
                 <div className="flex flex-col gap-3 text-sm">
-                  {["Home", "About", "Products", "Contact"].map((item) => (
+                  {["Home", "About", "Services", "Contact"].map((item) => (
                     <a
                       key={item}
                       href={`#${item.toLowerCase()}`}
@@ -242,29 +244,29 @@ export default function Home() {
           <div className="max-md:hidden grid-lines z-0"></div>
           <div className="max-md:hidden">
             <div className="inline-block absolute right-36 ">
-            <div className="relative">
-              <div className="h-14 w-14 rounded-full bg-[#10b981] border-4 border-white shadow-lg "></div>
-              <MousePointer2 className="absolute -left-4 -rotate-90 text-[#10b981] fill-[#10b981]" />
+              <div className="relative">
+                <div className="h-14 w-14 rounded-full bg-[#10b981] border-4 border-white shadow-lg "></div>
+                <MousePointer2 className="absolute -left-4 -rotate-90 text-[#10b981] fill-[#10b981]" />
+              </div>
             </div>
-          </div>
-          <div className="inline-block absolute right-48 bottom-12 ">
-            <div className="relative">
-              <Image src={ava} alt="logo" className="h-14 w-14 object-cover rounded-full bg-[#10b981] border-4 border-white shadow-lg "></Image>
-              <MousePointer2 className="absolute -left-6 -top-2 -rotate-20 text-[#10b981] fill-[#10b981]" />
+            <div className="inline-block absolute right-48 bottom-12 ">
+              <div className="relative">
+                <Image src={ava} alt="logo" className="h-14 w-14 object-cover rounded-full bg-[#10b981] border-4 border-white shadow-lg "></Image>
+                <MousePointer2 className="absolute -left-6 -top-2 -rotate-20 text-[#10b981] fill-[#10b981]" />
+              </div>
             </div>
-          </div>
-          <div className="inline-block absolute left-48 bottom-12 ">
-            <div className="relative">
-              <div className="h-14 w-14 rounded-full bg-[#10b981] border-4 border-white shadow-lg "></div>
-              <MousePointer2 className="absolute -right-6 -top-2 rotate-104 text-[#10b981] fill-[#10b981]" />
+            <div className="inline-block absolute left-48 bottom-12 ">
+              <div className="relative">
+                <div className="h-14 w-14 rounded-full bg-[#10b981] border-4 border-white shadow-lg "></div>
+                <MousePointer2 className="absolute -right-6 -top-2 rotate-104 text-[#10b981] fill-[#10b981]" />
+              </div>
             </div>
-          </div>
-          <div className="inline-block absolute left-36  ">
-            <div className="relative">
-              <div className="h-14 w-14 rounded-full bg-[#10b981] border-4 border-white shadow-lg "></div>
-              <MousePointer2 className="absolute -right-4 rotate-180 text-[#10b981] fill-[#10b981]" />
+            <div className="inline-block absolute left-36  ">
+              <div className="relative">
+                <div className="h-14 w-14 rounded-full bg-[#10b981] border-4 border-white shadow-lg "></div>
+                <MousePointer2 className="absolute -right-4 rotate-180 text-[#10b981] fill-[#10b981]" />
+              </div>
             </div>
-          </div>
           </div>
 
 
@@ -299,16 +301,15 @@ export default function Home() {
           </div>
         </div>
         <div id="about" className="min-h-screen ">
-          <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-7xl px-4 pt-20 sm:px-6 lg:px-8">
             {/* Header Section */}
             <div className="mb-16 text-center">
-              <div className="mb-4 inline-flex items-center gap-2 rounded-full border-2 border-[#10b981] bg-white md:px-6 px-4 py-2 shadow-sm">
-                <div className="flex md:h-8 md:w-8 h-6 w-6 max-md:text[10px]  items-center justify-center rounded-full bg-[#10b981] text-white font-bold">
-                  1
-                </div>
-                <span className="text-sm font-semibold text-emerald-700">How it Works</span>
+              <div className="flex items-center gap-4 mb-6">
+                <div className="flex-1 h-px bg-gradient-to-r from-emerald-200 to-transparent" />
+                <span className="text-xs font-semibold tracking-widest text-emerald-600 uppercase">How it works</span>
+                <div className="flex-1 h-px bg-gradient-to-l from-emerald-200 to-transparent" />
               </div>
-              <h1 className="md:text-5xl text-3xl font-semibold tracking-tight text-gray-900 lg:text-4xl text-balance md:leading-11">Simple, transparent growth <span className="text-[#888]"><br />designed for creators</span></h1>
+              <h1 className="md:text-5xl text-[22px] font-semibold tracking-tight text-gray-900 lg:text-4xl text-balance md:leading-11">Simple, transparent growth <span className="text-[#888]"><br />designed for creators</span></h1>
             </div>
 
             {/* Feature Cards Grid */}
@@ -316,38 +317,39 @@ export default function Home() {
 
               className="grid gap-8 md:grid-cols-2 lg:grid-cols-3"
             >
-             {features.map((feature, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              whileHover={{ translateY: -4 }}
-              className="group relative rounded-xl border border-border bg-card p-8 transition-all duration-300 hover:border-[#10b981]/50 hover:shadow-lg overflow-hidden"
-            >
-              {/* Icon */}
-              <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-[#10b981]/10 text-[#10b981] transition-all duration-300 group-hover:bg-[#10b981] group-hover:text-white">
-                <feature.icon className="h-6 w-6" strokeWidth={2} />
-              </div>
+              {features.map((feature, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  whileHover={{ translateY: -4 }}
+                  className="group relative rounded-xl border border-border bg-card p-8 transition-all duration-300 hover:border-[#10b981]/50 hover:shadow-lg overflow-hidden"
+                >
+                  {/* Icon */}
+                  <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-[#10b981]/10 text-[#10b981] transition-all duration-300 group-hover:bg-[#10b981] group-hover:text-white">
+                    <feature.icon className="h-6 w-6" strokeWidth={2} />
+                  </div>
 
-              {/* Content */}
-              <h3 className="mb-3 text-lg font-semibold text-foreground">{feature.title}</h3>
-              <p className="text-sm leading-relaxed text-muted-foreground text-pretty">{feature.description}</p>
+                  {/* Content */}
+                  <h3 className="mb-3 text-lg font-semibold text-foreground">{feature.title}</h3>
+                  <p className="text-sm leading-relaxed text-muted-foreground text-pretty">{feature.description}</p>
 
-              {/* Accent border bottom on hover */}
-              <div className="absolute bottom-0 left-0 h-0.5 w-0 bg-[#10b981] transition-all duration-300 group-hover:w-full" />
-            </motion.div>
-          ))}
+                  {/* Accent border bottom on hover */}
+                  <div className="absolute bottom-0 left-0 h-0.5 w-0 bg-[#10b981] transition-all duration-300 group-hover:w-full" />
+                </motion.div>
+              ))}
             </motion.div>
 
           </div>
         </div>
-        {/* <div>
-          <ContactForm/>
-        </div> */}
+        <ServiceCards />
+        <div>
+          <ContactForm />
+        </div>
       </section>
-
+      <Footer />
     </div>
   )
 }

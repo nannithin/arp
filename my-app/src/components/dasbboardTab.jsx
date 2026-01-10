@@ -5,6 +5,7 @@ import clsx from "clsx"
 
 const tabs = [
   { key: "campaigns", label: "Campaigns" },
+  { key: "analytics", label: "Analytics" },
   { key: "performance", label: "Performance" },
   { key: "metrics", label: "Channel Metrics" },
   { key: "subscriptions", label: "Subscriptions" },

@@ -103,6 +103,7 @@ const Dash = () => {
                 <DropdownMenuContent>
                     <DropdownMenuItem onClick={() => handleTabChange("campaigns")}>Campaigns</DropdownMenuItem>
                     <DropdownMenuSeparator />
+                    <DropdownMenuItem onClick={() => handleTabChange("analytics")}>Campaigns</DropdownMenuItem>
                     <DropdownMenuItem onClick={() => handleTabChange("performance")}>Performance</DropdownMenuItem>
                     <DropdownMenuItem onClick={() => handleTabChange("metrics")}>Channel metrics</DropdownMenuItem>
                     <DropdownMenuItem onClick={() => handleTabChange("subscriptions")}>Subscriptions</DropdownMenuItem>

@@ -38,6 +38,8 @@ export default function DashboardContent({ campaigns, paymentInfo }) {
     switch (tab) {
         case "performance":
             return <Skel />
+        case "analytics":
+            return <Skel />
         case "metrics":
             return <Skel />
         case "subscriptions":
