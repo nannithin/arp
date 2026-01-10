@@ -114,7 +114,7 @@ export default function PromotionalPage() {
         <div className="mt-12 text-center">
           <p className="text-sm text-muted-foreground">
             Need help choosing?{" "}
-            <span className="text-[#10B981] font-semibold cursor-pointer hover:underline">Contact our team</span>
+            <a href="mailto:support@mygrono.com" className="text-[#10B981] font-semibold cursor-pointer hover:underline">Contact our team</a>
           </p>
         </div>
       </div>

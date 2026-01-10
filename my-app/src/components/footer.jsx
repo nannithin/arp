@@ -11,12 +11,12 @@ const socialLinks = [
     },
     {
         icon: Mail,
-        href: "mailto:hello@example.com",
+        href: "mailto:support@mygrono.com",
         label: "Email",
     },
     {
         icon: Linkedin,
-        href: "https://linkedin.com",
+        href: "https://www.linkedin.com/company/mygrono",
         label: "LinkedIn",
     },
     {
@@ -204,6 +204,8 @@ export function Footer() {
                                     aria-label={social.label}
                                     variants={socialVariants}
                                     whileHover="hover"
+                                    target="_blank"
+                                    
                                     className="w-10 h-10 rounded-full bg-primary-foreground/10 flex items-center justify-center hover:bg-primary-foreground/20 transition-colors duration-200"
                                 >
                                     <Icon className="w-5 h-5" />
